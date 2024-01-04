@@ -24,5 +24,8 @@ const styles = StyleSheet.create({
     highlight: {
       fontWeight: '700',
     },
+    btn:{
+      margin:10
+    }
   });
 export default styles

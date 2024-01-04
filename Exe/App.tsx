@@ -20,13 +20,13 @@ import MinMax from './src/components/MinMax';
 import styles from './src/styles';
 import Frag from './src/components/Frag';
 import Button from './src/components/Button';
+import Counter from './src/components/Counter';
 
 export default function App(){
   return(
     <SafeAreaView style={styles.App}>
       <View>
-        <Frag tittle='TituloFrag' sec='Texto secundario' />
-        <Button/>
+        <Counter/>
       </View>
     </SafeAreaView>
   )
