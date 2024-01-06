@@ -1,0 +1,19 @@
+{
+	"Componente Funcional" : {
+		"scope" : "javascript,typescript",
+		"prefix" : "CompFunc",
+		"body" : [
+			"import React, { useState }  from 'react';",
+			"import { Button, Text, View } from 'react-native';",
+			"import styles from '../styles';",
+			
+			
+			"export default ()=>{",
+			"return(",
+			"	",
+			"	)",
+			"}"
+		],
+		"description" :"Componente"
+	}
+}
