@@ -4,7 +4,7 @@ import Son from "./Son";
 
 export default ()=>{
     function Show(n:any){
-        console.warn(n)
+        console.log(n)
     }
     return(
        <>
