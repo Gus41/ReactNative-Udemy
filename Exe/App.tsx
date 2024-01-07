@@ -22,12 +22,13 @@ import Frag from './src/components/Frag';
 import Button from './src/components/Button';
 import Counter from './src/components/Counter';
 import Father from './src/components/indirect/Father';
+import Counter2 from './src/components/Counter_2/Counter2';
 
 export default function App(){
   return(
     <SafeAreaView style={styles.App}>
       <View>
-        <Father/>
+        <Counter2/>
       </View>
     </SafeAreaView>
   )
