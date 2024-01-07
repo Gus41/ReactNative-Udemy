@@ -27,7 +27,7 @@ import Counter2 from './src/components/Counter_2/Counter2';
 export default function App(){
   return(
     <SafeAreaView style={styles.App}>
-      <View>
+      <View style={styles.sectionContainer}>
         <Counter2/>
       </View>
     </SafeAreaView>

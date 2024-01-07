@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
         color:'white'
     },
     sectionContainer: {
-      marginTop: 32,
-      paddingHorizontal: 24,
+     alignContent:"center",
+     alignItems:'center'
     },
     sectionTitle: {
       fontSize: 24,
