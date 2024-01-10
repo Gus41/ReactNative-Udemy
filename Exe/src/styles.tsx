@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         padding:20,
-        backgroundColor:'black',
+        backgroundColor:'white',
         color:'white'
     },
     sectionContainer: {

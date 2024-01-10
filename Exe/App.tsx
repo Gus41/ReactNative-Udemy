@@ -27,12 +27,13 @@ import Diferent from './src/components/Diferent';
 import UserLogin from './src/components/UserLogin';
 import ProductsList from './src/components/Products/ProductsList';
 import ProductFlastList from './src/components/Products/ProductFlastList';
+import SayYourName from './src/components/SayYourName';
 
 export default function App(){
   return(
     <SafeAreaView style={styles.App}>
       <View style={styles.sectionContainer}>
-       <ProductFlastList/>
+       <SayYourName/>
       </View>
     </SafeAreaView>
   )
