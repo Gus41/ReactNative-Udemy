@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         padding:20,
-        backgroundColor:'white',
+        backgroundColor:'#2D3E40',
         color:'white'
     },
     sectionContainer: {
@@ -51,6 +51,12 @@ const styles = StyleSheet.create({
       flexDirection:'row',
       alignContent:'center',
       alignItems:'center'
+    },
+    box:{
+      height:40,
+      width:40,
+      backgroundColor:'#387373',
+      margin:5
     }
   });
 export default styles
