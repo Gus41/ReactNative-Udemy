@@ -26,12 +26,13 @@ import Counter2 from './src/components/Counter_2/Counter2';
 import Diferent from './src/components/Diferent';
 import UserLogin from './src/components/UserLogin';
 import ProductsList from './src/components/Products/ProductsList';
+import ProductFlastList from './src/components/Products/ProductFlastList';
 
 export default function App(){
   return(
     <SafeAreaView style={styles.App}>
       <View style={styles.sectionContainer}>
-       <ProductsList/>
+       <ProductFlastList/>
       </View>
     </SafeAreaView>
   )
