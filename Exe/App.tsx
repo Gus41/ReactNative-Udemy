@@ -25,15 +25,13 @@ import Father from './src/components/indirect/Father';
 import Counter2 from './src/components/Counter_2/Counter2';
 import Diferent from './src/components/Diferent';
 import UserLogin from './src/components/UserLogin';
+import ProductsList from './src/components/Products/ProductsList';
 
 export default function App(){
   return(
     <SafeAreaView style={styles.App}>
       <View style={styles.sectionContainer}>
-        <UserLogin user ={{
-          name:'Anderson',
-          email:'Anderson@gmail.com'
-        }}/>
+       <ProductsList/>
       </View>
     </SafeAreaView>
   )
