@@ -29,8 +29,6 @@ export default class Mega extends React.Component {
         this.setState({
             randomNums : numeros
         })
-        console.log(this.state.randomNums)
-
     }
    
 
