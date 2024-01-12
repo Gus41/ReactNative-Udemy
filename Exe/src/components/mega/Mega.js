@@ -12,18 +12,18 @@ export default class Mega extends React.Component {
         randomNums: []
     }
     setQntd(n){
-        this.setState({qntd : n})
+        this.setState({qntd : Number(n)})
     }
     gerarNumNaoContido = (nums)=>{
-        console.log('...')
+        console.log(this.state.qntd)
         const novo = parseInt(Math.random() * 60 ) + 1
         return nums.includes(novo) ? this.gerarNumNaoContido(nums) : novo
         
     }
     gerarNumeros = ()=>{
        
-        const numeros = Array(this.state.qntd)
-        .fill()
+        let numeros = Array(this.state.qntd)
+        .fill([])
         .reduce(n=>[...n,this.gerarNumNaoContido(n)],[])
         
         this.setState({
