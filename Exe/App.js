@@ -23,7 +23,8 @@ import Mega from './src/components/mega/Mega';
 export default function App(){
   return(
     <SafeAreaView style={styles.App}>
-      <Mega nums ={12}
+      <Mega
+      qntd = {5}
       />
     </SafeAreaView>
   )

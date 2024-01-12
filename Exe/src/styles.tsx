@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         padding:20,
-        backgroundColor:'black',
+        backgroundColor:'gray',
         color:'white'
     },
     sectionContainer: {
@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
       fontSize: 18,
       fontWeight: '400',
       color:'white',
-      textAlign:'center'
+      textAlign:'center',
+      
     },
     highlight: {
       fontWeight: '700',
@@ -57,6 +58,14 @@ const styles = StyleSheet.create({
       width:40,
       backgroundColor:'#387373',
       margin:5
+    },
+    txtInp:{
+      backgroundColor:'white',
+      borderRadius:10,
+      textAlign:'center',
+      borderWidth:0,
+      fontSize: 18,
+      color:'black'
     }
   });
 export default styles
