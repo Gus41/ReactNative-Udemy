@@ -11,7 +11,7 @@ export default (props:any)=>{
 }
 const style = StyleSheet.create({
     display:{
-        flex:0.8,
+        flex:1,
         padding:20,
         justifyContent:'center',
         backgroundColor:'black',
