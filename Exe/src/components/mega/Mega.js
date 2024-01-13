@@ -1,6 +1,7 @@
 import React, { useState }  from "react";
 import { Alert, Button, FlatList, Text, TextInput, View } from "react-native";
 import styles from "../../styles";
+import Num from "./Num";
 
 
 export default class Mega extends React.Component {
@@ -15,7 +16,6 @@ export default class Mega extends React.Component {
         this.setState({qntd : Number(n)})
     }
     gerarNumNaoContido = (nums)=>{
-        console.log(this.state.qntd)
         const novo = parseInt(Math.random() * 60 ) + 1
         return nums.includes(novo) ? this.gerarNumNaoContido(nums) : novo
         
@@ -30,9 +30,15 @@ export default class Mega extends React.Component {
             randomNums : numeros
         })
     }
-   
+    showNumbers = ()=>{
+        const nums = this.state.randomNums
 
-
+        return nums.map(e=>{
+            return(
+                <Num key={e} num={e}/>
+            )
+        })
+    }
     render(){
         return(
             <View>
@@ -50,8 +56,18 @@ export default class Mega extends React.Component {
                 title="Gerar numeros"
                 onPress={this.gerarNumeros}
                 />
-                <Text style={styles.sectionDescription}>{this.state.randomNums.join(',')}</Text>
+                <View style={
+                    {
+                        justifyContent:'center',
+                        flexDirection:'row',
+                        flexWrap:'wrap',
+                        margin:10
+                    }
+                }>
+                    {this.showNumbers()}
+                </View>
             </View>
+
         )
     }
 }

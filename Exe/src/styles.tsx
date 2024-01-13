@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
       textAlign:'center',
       borderWidth:0,
       fontSize: 18,
-      color:'black'
-    }
+      color:'black',
+      marginBottom:20
+    },
   });
 export default styles
