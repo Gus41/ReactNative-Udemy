@@ -1,10 +1,14 @@
 import { SafeAreaView, Text, View } from "react-native";
 import styles from "./src/styles";
 import Button from "./src/components/Button";
+import Display from "./src/components/Display";
+import { useState } from "react";
 
 export default function App(){
+  const [DisplayValue,setDisplayValue] = useState(0)
   return(
     <SafeAreaView style={styles.sectionContainer}>
+      <Display value={DisplayValue} />
       <View style={styles.Buttons}>
         <Button
         label={'AC'}
