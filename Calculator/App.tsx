@@ -5,11 +5,33 @@ import Display from "./src/components/Display";
 import { useState } from "react";
 
 export default function App(){
-  const [DisplayValue,setDisplayValue] = useState('0')
 
+  const [DisplayValue,setDisplayValue] = useState('0')
+  const [ClearDisp,setClearDisp] = useState(false)
+  const [Operation,ChangeOperation] = useState(null)
+  const [values,setValues] = useState([0,0])
+  const [indiceValue,setIndiceValue] = useState(0)
 
   const addDigit = (d:string)=>{
-    setDisplayValue(d)
+    if( !(d=='.' && DisplayValue.includes('.')) ){
+      // Se o valor atual do display for 0 ou a Variavael de ClearDisplay 
+      //estiver setada como true, limpar o display
+      const ClearDisplay = DisplayValue === '0' || ClearDisp
+
+      //se o primeiro valor for 0 o display tera que ser limpo, logo o value
+      //fica vazio, caso contrario, ele recebe o valor atual do display
+      const Value = ClearDisplay? '' : DisplayValue
+      //concatenando o valor mais o digito atual
+      const displayValue = Value  + d 
+      setDisplayValue(displayValue)
+    }
+    // se o digito atual NAO for um ponto
+    if(d!=='.'){
+      const newValue = parseFloat(DisplayValue)
+      const Newvalues = [...values]
+      Newvalues[indiceValue] = newValue
+      setValues(Newvalues)
+    }
   }
   const clearDisplay = ()=>{
     setDisplayValue('0')
