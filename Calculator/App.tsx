@@ -22,6 +22,9 @@ export default function App(){
       //fica vazio, caso contrario, ele recebe o valor atual do display
       const Value = ClearDisplay? '' : DisplayValue
       //concatenando o valor mais o digito atual
+      if(d ==='.' && DisplayValue === '0'){
+        return
+      }
       const displayValue = Value  + d 
       setDisplayValue(displayValue)
     }
@@ -35,6 +38,11 @@ export default function App(){
   }
   const clearDisplay = ()=>{
     setDisplayValue('0')
+    setIndiceValue(0)
+    setValues([0,0])
+    setClearDisp(false)
+    ChangeOperation(null)
+
   }
   const setOperation = (op:any)=>{
 
