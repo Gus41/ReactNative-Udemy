@@ -38,12 +38,11 @@ export default function App(){
       setDisplayValue(displayValue)
     }
     //Setando o value atual como float para não dar erro de tipagem float com inteiro
-    if(d!=='.'){
-      const newValue = parseFloat(DisplayValue)
+    if(d!='.'){
+      const ValueFloat = parseFloat(DisplayValue)
       const Newvalues = [...values]
-      Newvalues[indiceValue] = newValue
+      Newvalues[indiceValue] = ValueFloat
       setValues(Newvalues)
-      console.debug(DisplayValue)
     }
     
   }
@@ -90,7 +89,7 @@ export default function App(){
   }
   return(
     <SafeAreaView style={styles.sectionContainer}>
-      <Display value={DisplayValue} />
+      <Display value={DisplayValue} values = {values} />
       <View style={styles.Buttons}>
         <Button
         label={'AC'}

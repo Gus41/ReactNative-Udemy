@@ -5,6 +5,9 @@ export default (props:any)=>{
     
     return(
        <View style={style.display}>
+        <Text style={{
+            color:'white'
+        }}>{props.values[0]} , {props.values[1]}</Text>
         <Text style={style.displayText} numberOfLines={1}>{props.value}</Text>
        </View>
     )
