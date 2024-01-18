@@ -6,37 +6,49 @@ import { useState } from "react";
 
 export default function App(){
 
+
+
+  //STATES
   const [DisplayValue,setDisplayValue] = useState('0')
   const [ClearDisp,setClearDisp] = useState(false)
   const [Operation,ChangeOperation] = useState(null)
   const [values,setValues] = useState([0,0])
   const [indiceValue,setIndiceValue] = useState(0)
 
+
+
+
+  //ADICIONAR DIGITO
   const addDigit = (d:any)=>{
+    //verificaçãp para não colocar dois pontos seguidos
+   
     if( !(d=='.' && DisplayValue.includes('.')) ){
-    
+      
+      //verificando se o display deverá ser limpo
       const ClearDisplay = DisplayValue === '0' || ClearDisp
 
-     
-      const Value = ClearDisplay? '' : DisplayValue
+     //Se o Display precisar ser limpo, o Value será vazio
+      let Value = ClearDisplay? '' : DisplayValue
      
       if(d ==='.' && DisplayValue === '0'){
-        return
+        Value = '0'
       }
       const displayValue = Value  + d 
+      
       setDisplayValue(displayValue)
     }
-    
+    //Setando o value atual como float para não dar erro de tipagem float com inteiro
     if(d!=='.'){
       const newValue = parseFloat(DisplayValue)
       const Newvalues = [...values]
       Newvalues[indiceValue] = newValue
       setValues(Newvalues)
+      console.debug(DisplayValue)
     }
-    if(ClearDisp){
-      setClearDisp(false)
-    }
+    
   }
+
+  //CLEAR NO DIPLAY E VOLTANDO TODOSO OS ESTADOS PARA OS VALORES INICIAIS
   const clearDisplay = ()=>{
     setDisplayValue('0')
     setIndiceValue(0)
@@ -45,18 +57,26 @@ export default function App(){
     ChangeOperation(null)
 
   }
+
+
+  //SETAR OPERAÇÃO
   const setOperation = (op:any)=>{
+    console.debug(op)
+    // Se a operação for setada e o usuario ainda tiver digitado APENAS o primeiro valor
+    //Exemplo : Usuario digitou ' 2 + '
     if(indiceValue === 0){
-      ChangeOperation(op)
-      setIndiceValue(1)
-      setClearDisp(true)
+      ChangeOperation(op) // setando a operação
+      setIndiceValue(1) // setando o indice pra o proximo valor
+      setClearDisp(true) // Quando o usuario for digitar o proximo valor, o diplay será limpo antes
     }else{
+      //INDICE !== 0 
+     
       const isEquals = op ==='='
       const valuesClone = [...values]
       try{
         valuesClone[0] = eval(`${values[0]} ${Operation} ${values[1]}`)
       }catch(e){
-        valuesClone[0] = values [0]
+        valuesClone[0] = values[0]
       }
 
       values[1] = 0
