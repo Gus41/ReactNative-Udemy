@@ -14,26 +14,27 @@ export default function App(){
 
   const addDigit = (d:string)=>{
     if( !(d=='.' && DisplayValue.includes('.')) ){
-      // Se o valor atual do display for 0 ou a Variavael de ClearDisplay 
-      //estiver setada como true, limpar o display
+    
       const ClearDisplay = DisplayValue === '0' || ClearDisp
 
-      //se o primeiro valor for 0 o display tera que ser limpo, logo o value
-      //fica vazio, caso contrario, ele recebe o valor atual do display
+     
       const Value = ClearDisplay? '' : DisplayValue
-      //concatenando o valor mais o digito atual
+     
       if(d ==='.' && DisplayValue === '0'){
         return
       }
       const displayValue = Value  + d 
       setDisplayValue(displayValue)
     }
-    // se o digito atual NAO for um ponto
+    
     if(d!=='.'){
       const newValue = parseFloat(DisplayValue)
       const Newvalues = [...values]
       Newvalues[indiceValue] = newValue
       setValues(Newvalues)
+    }
+    if(ClearDisp){
+      setClearDisp(false)
     }
   }
   const clearDisplay = ()=>{
@@ -45,6 +46,26 @@ export default function App(){
 
   }
   const setOperation = (op:any)=>{
+    if(indiceValue === 0){
+      ChangeOperation(op)
+      setIndiceValue(1)
+      setClearDisp(true)
+    }else{
+      const isEquals = op ==='='
+      const valuesClone = [...values]
+      try{
+        valuesClone[0] = eval(`${values[0]} ${Operation} ${values[1]}`)
+      }catch(e){
+        valuesClone[0] = values [0]
+      }
+
+      values[1] = 0
+      setDisplayValue(`${valuesClone[0]}`)
+      ChangeOperation(isEquals?null:op)
+      setIndiceValue(isEquals?0:1)
+      setClearDisp(!isEquals)
+      setValues(valuesClone)
+    }
 
   }
   return(
@@ -125,6 +146,7 @@ export default function App(){
         operator
         doubble
         equals
+        onClick = {()=>setOperation('=')}
         />
       </View>
     </SafeAreaView>
