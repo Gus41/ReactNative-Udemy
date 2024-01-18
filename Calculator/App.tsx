@@ -12,7 +12,7 @@ export default function App(){
   const [values,setValues] = useState([0,0])
   const [indiceValue,setIndiceValue] = useState(0)
 
-  const addDigit = (d:string)=>{
+  const addDigit = (d:any)=>{
     if( !(d=='.' && DisplayValue.includes('.')) ){
     
       const ClearDisplay = DisplayValue === '0' || ClearDisp
