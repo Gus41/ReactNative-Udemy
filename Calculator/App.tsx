@@ -7,7 +7,7 @@ import Button from "./src/components/Button"
 
 const initialState = {
   DisplayValue:'0',
-  CleatDisplay:false,
+  ClearDisplay:false,
   Operation:null,
   Values:[0,0],
   Courrent:0
@@ -22,7 +22,21 @@ export default class App extends Component{
   }
 
   setOperation = (op:any) =>{
-
+    if(this.state.Courrent === 0){
+      this.setState({Operation:op,Courrent:1,ClearDisplay:true})
+    }else{
+      const Values = [...this.state.Values]
+      try{
+        Values[0] = eval(`${Values[0]} ${this.state.Operation} ${Values[1]}`)
+      }catch(e){
+        Values[0] = this.state.Values[0]
+      }
+      Values[1] = 0
+      const DisplayValue = `${Values[0]}`
+      this.setState({Values,Courrent:op==='='?0:1,DisplayValue,Operation:op==='='?null:op,ClearDisplay:true})
+     
+    }
+    
   }
 
   addDigit = (digit : any)=>{
@@ -31,13 +45,13 @@ export default class App extends Component{
     }
     let Value
 
-    if(this.state.CleatDisplay || this.state.DisplayValue === '0' && digit !=='.' && digit !=='0'){
+    if(this.state.ClearDisplay || this.state.DisplayValue === '0' && digit !=='.' && digit !=='0'){
       Value = ''
     }else{
       Value = this.state.DisplayValue
     }
     const DisplayValue = Value + digit
-    this.setState({DisplayValue})
+    this.setState({DisplayValue, ClearDisplay:false})
     if(digit !== '.'){
       const FloatValues = [...this.state.Values]
       FloatValues[this.state.Courrent] = parseFloat(DisplayValue)
