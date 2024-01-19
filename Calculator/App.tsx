@@ -1,173 +1,135 @@
-import { SafeAreaView, Text, View } from "react-native";
-import styles from "./src/styles";
-import Button from "./src/components/Button";
-import Display from "./src/components/Display";
-import { useState } from "react";
-
-export default function App(){
+import { Component } from "react"
+import { SafeAreaView, View } from "react-native"
+import Display from "./src/components/Display"
+import styles from "./src/styles"
+import Button from "./src/components/Button"
 
 
+const initialState = {
+  DisplayValue:'0',
+  CleatDisplay:false,
+  Operation:null,
+  Values:[0,0],
+  Courrent:0
+}
 
-  //STATES
-  const [DisplayValue,setDisplayValue] = useState('0')
-  const [ClearDisp,setClearDisp] = useState(false)
-  const [Operation,ChangeOperation] = useState(null)
-  const [values,setValues] = useState([0,0])
-  const [indiceValue,setIndiceValue] = useState(0)
+export default class App extends Component{
+  
+  state = {...initialState}
 
-
-
-
-  //ADICIONAR DIGITO
-  const addDigit = (d:any)=>{
-    //verificaçãp para não colocar dois pontos seguidos
-   
-    if( !(d=='.' && DisplayValue.includes('.')) ){
-      
-      //verificando se o display deverá ser limpo
-      const ClearDisplay = DisplayValue === '0' || ClearDisp
-
-     //Se o Display precisar ser limpo, o Value será vazio
-      let Value = ClearDisplay? '' : DisplayValue
-     
-      if(d ==='.' && DisplayValue === '0'){
-        Value = '0'
-      }
-      const displayValue = Value  + d 
-      
-      setDisplayValue(displayValue)
-    }
-    //Setando o value atual como float para não dar erro de tipagem float com inteiro
-    if(d!='.'){
-      const ValueFloat = parseFloat(DisplayValue)
-      const Newvalues = [...values]
-      Newvalues[indiceValue] = ValueFloat
-      setValues(Newvalues)
-    }
-    
+  clearDisplay = ()=>{
+    this.setState({...initialState})
   }
 
-  //CLEAR NO DIPLAY E VOLTANDO TODOSO OS ESTADOS PARA OS VALORES INICIAIS
-  const clearDisplay = ()=>{
-    setDisplayValue('0')
-    setIndiceValue(0)
-    setValues([0,0])
-    setClearDisp(false)
-    ChangeOperation(null)
+  setOperation = (op:any) =>{
 
   }
 
+  addDigit = (digit : any)=>{
+    if(digit === '.' && this.state.DisplayValue.includes('.')){
+      return
+    }
+    let Value
 
-  //SETAR OPERAÇÃO
-  const setOperation = (op:any)=>{
-    console.debug(op)
-    // Se a operação for setada e o usuario ainda tiver digitado APENAS o primeiro valor
-    //Exemplo : Usuario digitou ' 2 + '
-    if(indiceValue === 0){
-      ChangeOperation(op) // setando a operação
-      setIndiceValue(1) // setando o indice pra o proximo valor
-      setClearDisp(true) // Quando o usuario for digitar o proximo valor, o diplay será limpo antes
+    if(this.state.CleatDisplay || this.state.DisplayValue === '0' && digit !=='.' && digit !=='0'){
+      Value = ''
     }else{
-      //INDICE !== 0 
-     
-      const isEquals = op ==='='
-      const valuesClone = [...values]
-      try{
-        valuesClone[0] = eval(`${values[0]} ${Operation} ${values[1]}`)
-      }catch(e){
-        valuesClone[0] = values[0]
-      }
-
-      values[1] = 0
-      setDisplayValue(`${valuesClone[0]}`)
-      ChangeOperation(isEquals?null:op)
-      setIndiceValue(isEquals?0:1)
-      setClearDisp(!isEquals)
-      setValues(valuesClone)
+      Value = this.state.DisplayValue
+    }
+    const DisplayValue = Value + digit
+    this.setState({DisplayValue})
+    if(digit !== '.'){
+      const FloatValues = [...this.state.Values]
+      FloatValues[this.state.Courrent] = parseFloat(DisplayValue)
+      const Values = FloatValues
+      this.setState({Values})
     }
 
   }
-  return(
-    <SafeAreaView style={styles.sectionContainer}>
-      <Display value={DisplayValue} values = {values} />
+
+  render(){
+    return(
+      <SafeAreaView style={styles.sectionContainer}>
+      <Display value={this.state.DisplayValue} values = {this.state.Values} />
       <View style={styles.Buttons}>
         <Button
         label={'AC'}
         tripple 
-        onClick={clearDisplay}
+        onClick={this.clearDisplay}
         />
          <Button
         label={'/'}
         operator
-        onClick={()=> setOperation('/')}
+        onClick={()=> this.setOperation('/')}
         />
          <Button
         label={'7'}
-        onClick = {()=> addDigit('7')}
+        onClick = {()=> this.addDigit('7')}
         />
          <Button
         label={'8'}
-        onClick = {()=> addDigit('8')}
+        onClick = {()=> this.addDigit('8')}
         />
          <Button
         label={'9'}
-        onClick = {()=> addDigit('9')}
+        onClick = {()=> this.addDigit('9')}
         />
          <Button
         label={'*'}
         operator
-        onClick={()=>setOperation('*')}
+        onClick={()=> this.setOperation('*')}
         />
         <Button
         label={'4'}
-        onClick = {()=> addDigit('4')}
+        onClick = {()=> this.addDigit('4')}
         />
         <Button
         label={'5'}
-        onClick = {()=> addDigit('5')}
+        onClick = {()=> this.addDigit('5')}
         />
         <Button
         label={'6'}
-        onClick = {()=> addDigit('6')}
+        onClick = {()=> this.addDigit('6')}
         />
         <Button
         label={'-'}
         operator
-        onClick={()=>setOperation('-')}
+        onClick={()=> this.setOperation('-')}
         />
         <Button
         label={'1'}
-        onClick = {()=> addDigit('1')}
+        onClick = {()=> this.addDigit('1')}
         />
         <Button
         label={'2'}
-        onClick = {()=> addDigit('2')}
+        onClick = {()=> this.addDigit('2')}
         />
         <Button
         label={'3'}
-        onClick = {()=> addDigit('3')}
+        onClick = {()=> this.addDigit('3')}
         />
         <Button
         label={'+'}
         operator
-        onClick = {()=> setOperation('+')}
+        onClick = {()=> this.setOperation('+')}
         />
         <Button
         label={'0'}
-        onClick = {()=> addDigit('0')}
+        onClick = {()=> this.addDigit('0')}
         />
         <Button
         label={'.'}
-        onClick = {()=> addDigit('.')}
+        onClick = {()=> this.addDigit('.')}
         />
         <Button
         label={'='}
         operator
         doubble
         equals
-        onClick = {()=>setOperation('=')}
+        onClick = {()=> this.setOperation('=')}
         />
       </View>
     </SafeAreaView>
-  )
+    )
+  }
 }
