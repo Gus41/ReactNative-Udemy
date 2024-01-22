@@ -1,5 +1,4 @@
 import React from "react";
-import params from "../params";
 import { StyleSheet, View, Text } from "react-native";
 
 
