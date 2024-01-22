@@ -2,6 +2,7 @@ import { Component } from "react";
 import { SafeAreaView } from "react-native";
 import params from "./src/params";
 import Field from "./src/components/Field";
+import Flag from "./src/components/Flag";
 export default class App extends Component{
   render(){
     return(
@@ -14,6 +15,8 @@ export default class App extends Component{
         <Field opened nearMines = {5}/>
         <Field mined opened/>
         <Field mined opened exploded />
+        <Field flagged/>
+
       </SafeAreaView>
     )
   }

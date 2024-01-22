@@ -5,10 +5,10 @@ export default (props)=>{
 
     return(
         <View style={styles.container}>
-            <View style={styles.flagPole} />
-            <View style={styles.flag} />
-            <View style={styles.base1} />
-            <View style={styles.base2} />
+            <View style={[styles.flagPole, props.bigger? styles.flagPoleBigger : false]} />
+            <View style={[styles.flag, props.bigger ? styles.flagBigger : false]} />
+            <View style={[styles.base1 , props.bigger ? styles.base1Bigger : false]} />
+            <View style={[styles.base2 , props.bigger ? styles.base2Bigger : false]} />
         </View>
     )
 }
@@ -46,6 +46,28 @@ const styles = StyleSheet.create({
         backgroundColor:'black',
         marginLeft:5,
         marginTop:12
+    },
+    flagPoleBigger:{
+        height:28,
+        width:4,
+        marginLeft:16
+    },
+    flagBigger:{
+        height:10,
+        width:14,
+        marginLeft:3
+    },
+    base1Bigger:{
+        height:4,
+        width:12,
+        marginTop:20,
+        marginLeft:12
+    },
+    base2Bigger:{
+        height:4,
+        width:20,
+        marginLeft:8,
+        marginTop:24
     }
 
 })
