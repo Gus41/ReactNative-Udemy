@@ -6,12 +6,14 @@ export default class App extends Component{
   render(){
     return(
       <SafeAreaView>
-        <Field/>
+        <Field mined/>
         <Field opened nearMines = {3}/>
         <Field/>
         <Field opened nearMines = {1}/>
         <Field opened nearMines = {2}/>
         <Field opened nearMines = {5}/>
+        <Field mined opened/>
+        <Field mined opened exploded />
       </SafeAreaView>
     )
   }
