@@ -104,4 +104,12 @@ const wonGame = (board)=>{
 const ShowMines = (board)=>{
     Allfields(board).filter(f=>f.mined).forEach(f=>f.opened = true)
 }
-export { createMinedBoard}
+export { 
+    createMinedBoard,
+    cloneBoard,
+    openField,
+    ShowMines,
+    isBoardExploded,
+    wonGame,
+    openField
+}
