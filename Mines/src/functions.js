@@ -37,4 +37,71 @@ const createMinedBoard = (rows,columns,minesAmount) =>{
     spreadMines(board,minesAmount)
     return board
 }
+
+//-----------------------------------------------
+
+const cloneBoard = (board) =>{
+    return board.map(rows=>{
+        return rows.map(field=>{
+            return {...field}
+        })
+    })
+}
+//pega todos os vizinhos VALIDOS da posição escolhida
+const getNeighbors = (board,row,column)=>{
+    const neighbors = []
+    const rows = [row -1, row, row+1]
+    const cols = [ column -1, column, column +1]
+    
+    rows.forEach( r =>{
+        cols.forEach( c =>{
+            const isDiferent = r!==row || c!==column
+            const isValidRow = r>=0 && r< board.length
+            const isValidColumn = c >=0 && c < board[0].length
+            if(isDiferent && isValidColumn && isValidRow){
+                neighbors.push(board[r][c])
+            }
+
+        })
+    })
+
+    return neighbors
+
+}
+
+const isSafeNeighborhood = (board,row,column)=>{
+    const safes =(result,neighbor)=> result && neighbor.mined
+    return getNeighbors(board,row,column).reduce(safes,true)
+}
+
+const openField = (board,row,column)=>{
+    const field = board[row][column]
+    if(!field.opned){
+        field.opned = true
+        if(field.mined){
+            field.exploded = true
+        }else if(isSafeNeighborhood(board,row,column)){
+            getNeighbors(board,row,column).forEach(f =>openField(board,f.row,f.column))
+        }else{
+            const neighborhors = getNeighbors(board,row,column)
+            field.nearMines = neighborhors.filter(f => f.mined).length
+        }
+    }
+}
+const Allfields = (board)=>{
+    return [].concat(...board)
+}
+const isBoardExploded = (board)=>{
+    return Allfields(board).filter(f=>f.exploded).length > 0
+}
+const pending = (field)=>{
+    return (field.mined && !field.flagged) 
+    || (!field.mined && !field.opened)
+}
+const wonGame = (board)=>{
+    return Allfields(board).filter(pending).length === 0
+}
+const ShowMines = (board)=>{
+    Allfields(board).filter(f=>f.mined).forEach(f=>f.opened = true)
+}
 export { createMinedBoard}
