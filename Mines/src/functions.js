@@ -111,5 +111,4 @@ export {
     ShowMines,
     isBoardExploded,
     wonGame,
-    openField
 }
