@@ -40,10 +40,10 @@ const createMinedBoard = (rows,columns,minesAmount) =>{
 
 //-----------------------------------------------
 
-const cloneBoard = (board) =>{
-    return board.map(rows=>{
-        return rows.map(field=>{
-            return {...field}
+const cloneBoard = board => {
+    return board.map(rows => {
+        return rows.map(field => {
+            return { ...field }
         })
     })
 }
@@ -111,4 +111,5 @@ export {
     ShowMines,
     isBoardExploded,
     wonGame,
+
 }

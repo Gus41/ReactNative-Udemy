@@ -7,7 +7,9 @@ export default (props) =>{
     const rows = props.board.map((row,r_indice)=>{
         const columns = row.map((field,c_indice)=>{
             return(
-                <Field {...field} key={c_indice}/>
+                <Field {...field} key={c_indice}
+                onOpen={()=>props.openField(r_indice,c_indice)}
+                />
             )
         })
         return(

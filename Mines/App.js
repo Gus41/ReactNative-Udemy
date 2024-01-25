@@ -1,10 +1,11 @@
 import { Component } from "react";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { Alert, SafeAreaView, StyleSheet, View } from "react-native";
 import params from "./src/params";
 import Field from "./src/components/Field";
 import Flag from "./src/components/Flag";
 import MineField from "./src/components/MineField";
-import { createMinedBoard } from "./src/functions";
+import {
+  cloneBoard, ShowMines, createMinedBoard, isBoardExploded, wonGame } from "./src/functions";
 
 
 export default class App extends Component{
@@ -21,16 +22,23 @@ export default class App extends Component{
     const cols = params.getColumnsAmount()
     const rows = params.getRowsAmount()
     return {
-      board : createMinedBoard(rows,cols,this.MinesAmount())
+      board : createMinedBoard(rows,cols,this.MinesAmount()),
+      won : false,
+      lost: false
+    
     }
   }
-
+  openField =(row,col)=>{
+    Alert.alert('click')
+  }
 
   render(){
     return(
       <SafeAreaView>
         <View style={styles.board}>
-          <MineField board={this.state.board} />
+          <MineField board={this.state.board} 
+          openField={this.openField}
+          />
         </View>
       </SafeAreaView>
     )
