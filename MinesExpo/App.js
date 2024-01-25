@@ -5,7 +5,8 @@ import Field from "./src/components/Field";
 import Flag from "./src/components/Flag";
 import MineField from "./src/components/MineField";
 import {
-  cloneBoard, ShowMines, createMinedBoard, isBoardExploded, wonGame } from "./src/functions";
+  cloneBoard, ShowMines, createMinedBoard, isBoardExploded, wonGame, openField
+} from "./src/functions";
 
 
 export default class App extends Component{
@@ -30,7 +31,7 @@ export default class App extends Component{
   }
   openField =(row,col)=>{
     const board = cloneBoard(this.state.board)
-    this.openField(board,row,col)
+    openField(board,row,col)
     const lost = isBoardExploded(board)
     const won = wonGame(board)
 
