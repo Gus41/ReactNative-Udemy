@@ -5,7 +5,7 @@ import Field from "./src/components/Field";
 import Flag from "./src/components/Flag";
 import MineField from "./src/components/MineField";
 import {
-  cloneBoard, ShowMines, createMinedBoard, isBoardExploded, wonGame, openField
+  cloneBoard, ShowMines, createMinedBoard, isBoardExploded, wonGame, openField, invertFlag
 } from "./src/functions";
 
 
@@ -43,13 +43,23 @@ export default class App extends Component{
     }
     this.setState({board,won,lost})
   }
-
+  onLongPress = (row,col)=>{
+    
+    const board = cloneBoard(this.state.board)
+    invertFlag(board,row,col)
+    const won = wonGame(board)
+    if(won){
+      Alert.alert("Ganhou","parabens")
+    }
+    this.setState({board,won})
+  }
   render(){
     return(
       <SafeAreaView>
         <View style={styles.board}>
           <MineField board={this.state.board} 
           openField={this.openField}
+          onLongPress={this.onLongPress}
           />
         </View>
       </SafeAreaView>

@@ -9,6 +9,7 @@ export default (props) =>{
             return(
                 <Field {...field} key={c_indice}
                 onOpen={()=>props.openField(r_indice,c_indice)}
+                onLongPress ={()=>props.onLongPress(r_indice,c_indice)}
                 />
             )
         })

@@ -44,6 +44,7 @@ export default (props)=>{
     return(
         <TouchableWithoutFeedback
         onPress={props.onOpen}
+        onLongPress={props.onLongPress}
         >
             <View style={styleField}>
                 {!mined && opened && nearMines > 0 ? 
