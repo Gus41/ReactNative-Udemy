@@ -15,7 +15,7 @@ export default ()=>{
                 <Fields />
                 <CheckBoxes  text='Qual seu sexo?' options={['Mas','Fem','N/B']}/>
                 <TouchableWithoutFeedback>
-                    <View  style={styles.button}>
+                    <View style={styles.button}>
                         <Text style={styles.text}>Continuar</Text>
                     </View>
                 </TouchableWithoutFeedback>
