@@ -109,9 +109,15 @@ const invertFlag =(board,r,c)=>{
     field.flagged = !field.flagged
 }
 const flagsUsed = (board)=>{
-    Allfields(board).filter(field=> field.flagged).length
+    return Allfields(board).filter(field=> field.flagged).length
 }
-
+const MinesFlagged = (board)=>{
+    Allfields(board).filter(field =>{
+        if(field.mined && field.flagged){
+            return field
+        }
+    }).length
+}
 export { 
     createMinedBoard,
     cloneBoard,

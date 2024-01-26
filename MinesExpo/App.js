@@ -5,7 +5,7 @@ import Field from "./src/components/Field";
 import Flag from "./src/components/Flag";
 import MineField from "./src/components/MineField";
 import {
-  cloneBoard, ShowMines, createMinedBoard, isBoardExploded, wonGame, openField, invertFlag
+  cloneBoard, ShowMines, createMinedBoard, isBoardExploded, wonGame, openField, invertFlag, flagsUsed
 } from "./src/functions";
 import Header from "./src/components/Header";
 
@@ -56,21 +56,22 @@ export default class App extends Component{
   }
   render(){
     return(
-      <SafeAreaView>
-        <Header />
+    <>
+     <Header flagsLeft={this.MinesAmount() - flagsUsed(this.state.board)}
+        onNewGame = {()=> this.setState(this.createState())}
+        />
         <View style={styles.board}>
           <MineField board={this.state.board} 
           openField={this.openField}
           onLongPress={this.onLongPress}
           />
         </View>
-      </SafeAreaView>
+    </>
     )
   }
 }
 const styles = StyleSheet.create({
   container:{
-    flex:1,
     justifyContent:'flex-end'
   },
   board:{
