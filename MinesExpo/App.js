@@ -7,6 +7,7 @@ import MineField from "./src/components/MineField";
 import {
   cloneBoard, ShowMines, createMinedBoard, isBoardExploded, wonGame, openField, invertFlag
 } from "./src/functions";
+import Header from "./src/components/Header";
 
 
 export default class App extends Component{
@@ -56,6 +57,7 @@ export default class App extends Component{
   render(){
     return(
       <SafeAreaView>
+        <Header />
         <View style={styles.board}>
           <MineField board={this.state.board} 
           openField={this.openField}
