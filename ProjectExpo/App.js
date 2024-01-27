@@ -4,12 +4,16 @@ import InitialPage from './components/InitialPage';
 import { useState } from 'react';
 import frontPage from './components/frontPage';
 import Register from './components/Register';
+import Welcome from './screens/Welcome';
 export default function App() {
-  const [user,setUser] = useState(null)
 
+  const [user,setUser] = useState(null)
+  const [userIsregistred,setUserIsRegistered] = useState(false)
+
+  
   return (
     <>
-      <Register />
+      <Welcome FirtsAcces={!userIsregistred} />
     </>
   );
 }
