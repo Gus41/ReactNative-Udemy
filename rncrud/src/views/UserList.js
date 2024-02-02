@@ -4,12 +4,13 @@ import users from "../data/users";
 import { ListItem } from "@rneui/base";
 import UserCard from "../components/UserCard";
 
-export default()=>{
+export default(props)=>{
+    
     return(
         <View style={styles.container}>
             <FlatList
             data={users}
-            renderItem={item=><UserCard email={item.item.email} url={item.item.avatarUrl} id={item.item.id} name={item.item.name}/>}
+            renderItem={item=><UserCard user={item.item} {...props} email={item.item.email} url={item.item.avatarUrl} id={item.item.id} name={item.item.name}/>}
             />
         </View>
     )

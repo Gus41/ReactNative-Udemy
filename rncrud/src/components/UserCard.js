@@ -1,9 +1,45 @@
-import { Image, View , Text, StyleSheet} from "react-native"
+import { Image, View , Text, StyleSheet, TouchableWithoutFeedback, Alert, TouchableHighlight} from "react-native"
 
 export default (props)=>{
+    function confirmUserDelete(user){
+        Alert.alert('Excluir usuário?','Essa ação não poderá ser desfeita',[
+            {
+                text:'Sim',
+                onPress(){
+                    console.warn('Excluir ' + user.name)
+                }
+            },
+            {
+                text:'Não'
+            }
+        ])
+    }
+    function getAction(user){
+        return (
+            <>
+                <TouchableWithoutFeedback
+                onPress={()=>props.navigation.navigate('UserForm',user)}
+                >
+                    <View style={{width:20,height:20,backgroundColor:'orange'}}>
 
+                    </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback
+                onPress={()=>confirmUserDelete(user)}
+                >
+                    <View style={{width:20,height:20,backgroundColor:'red'}}>
+
+                    </View>
+                </TouchableWithoutFeedback>
+            </>
+        )
+    }
+    const user = props.user
     return(
-        <View style={styles.card}>
+        <TouchableWithoutFeedback
+        onPress={()=>props.navigation.navigate("UserForm",user)}
+        >
+            <View style={styles.card}>
             <View style={styles.image}>
                 <Image
                 source={{uri:props.url + ''}}
@@ -19,9 +55,10 @@ export default (props)=>{
                 </Text>
             </View>
             <View style={styles.idContainer}>
-                <Text style={styles.id}>{props.id}</Text>
+                {getAction(props.user)}
             </View>
         </View>
+        </TouchableWithoutFeedback>
     )
 
 }
