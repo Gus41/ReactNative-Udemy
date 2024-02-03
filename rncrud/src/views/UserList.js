@@ -6,12 +6,12 @@ import UserCard from "../components/UserCard";
 import UsersContext from "../context/UsersContext";
 
 export default(props)=>{
-    const {state } = useContext(UsersContext)
+    const { state, dispatch} = useContext(UsersContext)
     return(
         <View style={styles.container}>
             <FlatList
             data={state.users}
-            renderItem={item=><UserCard user={item.item} {...props} email={item.item.email} url={item.item.avatarUrl} id={item.item.id} name={item.item.name}/>}
+            renderItem={item=><UserCard user={item.item} dispatch={dispatch} {...props} email={item.item.email} url={item.item.avatarUrl} id={item.item.id} name={item.item.name}/>}
             />
         </View>
     )

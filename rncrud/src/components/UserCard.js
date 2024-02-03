@@ -6,7 +6,10 @@ export default (props)=>{
             {
                 text:'Sim',
                 onPress(){
-                    console.warn('Excluir ' + user.name)
+                    props.dispatch({
+                        type: 'deleteUser',
+                        payload: user
+                    })
                 }
             },
             {

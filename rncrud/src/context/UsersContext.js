@@ -1,14 +1,24 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import users from "../data/users";
 
+const initialState = { users }
 const UsersContext = createContext({})
 export const UsersProvider = props=>{
-    return(
-        <UsersContext.Provider value={{
-            state:{
-                users
+    
+    function reducer(state,action){
+        if(action.type === 'deleteUser'){
+            const user = action.payload
+            return{
+                users: state.users.filter(u=> u.id !== user.id)
             }
-        }}>
+        }
+        return state
+    }
+
+    const [state,dispatch] = useReducer(reducer,initialState)
+
+    return(
+        <UsersContext.Provider value={{state, dispatch}} >
             {props.children}
         </UsersContext.Provider>
     )
