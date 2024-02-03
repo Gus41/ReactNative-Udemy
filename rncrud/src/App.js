@@ -8,7 +8,6 @@ import { Alert, Button, StyleSheet, TouchableHighlight, TouchableOpacity, View }
 import { Text } from "@rneui/base";
 import { UsersProvider } from "./context/UsersContext";
 
-
 const Stack = createNativeStackNavigator()
 export default function App(){
     return(
