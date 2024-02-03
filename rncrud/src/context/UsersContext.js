@@ -12,6 +12,22 @@ export const UsersProvider = props=>{
                 users: state.users.filter(u=> u.id !== user.id)
             }
         }
+        if(action.type === 'createUser'){
+            const user = action.payload
+            user.id = state.users.length + 1
+            return {
+                ...state,
+                users: [...state.users, user]
+            }
+        }
+        if(action.type === 'updateUser'){
+            const updatedUser = action.payload
+            return{
+                ...state,
+                users : state.users.map(u=> u.id === updatedUser.id ? updatedUser : u)
+            }
+        }
+
         return state
     }
 

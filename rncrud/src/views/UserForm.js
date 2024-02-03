@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TouchableWithoutFeedback } from "react-native";
 import { View, Text, TextInput, StyleSheet, TouchableNativeFeedbackBase, TouchableHighlightComponent} from "react-native";
+import UsersContext from "../context/UsersContext";
 
 
 export default(props)=>{
     const [user,setUser] = useState(props.route.params?props.route.params : {})
-
+    const { dispatch } = useContext(UsersContext)
     return(
         <View style={styles.form}>
             <Text>Name:</Text>
@@ -27,7 +28,13 @@ export default(props)=>{
             style={styles.input}
             />
             <TouchableWithoutFeedback
-            onPress={()=>props.navigation.goBack()}
+            onPress={()=>{
+                dispatch({
+                    type: user.id? 'updateUser' : 'createUser',
+                    payload: user
+                })
+                props.navigation.goBack()
+            }}
             >
                 <View>
                     <Text>Salvar</Text>
