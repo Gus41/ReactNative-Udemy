@@ -6,12 +6,14 @@ import UserList from "./views/UserList";
 import UserForm from "./views/UserForm";
 import { Alert, Button, StyleSheet, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import { Text } from "@rneui/base";
+import { UsersProvider } from "./context/UsersContext";
 
 
 const Stack = createNativeStackNavigator()
 export default function App(){
     return(
-        <NavigationContainer>
+        <UsersProvider>
+            <NavigationContainer>
             <Stack.Navigator 
             initialRouteName="UserList"
             screenOptions={screenOptions}
@@ -43,6 +45,7 @@ export default function App(){
                 />
             </Stack.Navigator>
         </NavigationContainer>
+        </UsersProvider>
     )
 }
 const screenOptions = {
