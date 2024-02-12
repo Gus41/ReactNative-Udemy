@@ -4,6 +4,7 @@ import { Component } from "react"
 import todayImage from '../../assets/imgs/today.jpg'
 import moment from "moment"
 import "moment/locale/pt-br"
+import commomStyles from "../commomStyles"
 export default class TaskList extends Component{
     render(){
         const today = moment().locale('pt-br').format('ddd,D [de] MMMM')
@@ -13,7 +14,7 @@ export default class TaskList extends Component{
                 style={styles.background} 
                 source={todayImage}>
                     <View style={styles.tittleBar}>
-                        <Text>Hoje</Text>
+                        <Text style={styles.tittle}>Hoje</Text>
                         <Text>{today}</Text>
                     </View>
                 </ImageBackground>
@@ -37,5 +38,12 @@ const styles = StyleSheet.create({
     tittleBar:{
         flex:1,
         justifyContent:'flex-end'
+    },
+    tittle:{
+        fontFamily: commomStyles.fontFamily,
+        fontSize:50,
+        color: commomStyles.color.secondary,
+        marginLeft:20,
+        marginBottom:20
     }
 })
