@@ -114,7 +114,60 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\clint\\.gradle\\caches\\transforms-3\\ff34738e7fb960ce73fd0d6cf687f2a8\\transformed\\jetified-react-android-0.73.3-debug\\res\\values\\values.xml",
+                    "source": "C:\\Users\\clint\\OneDrive\\Desktop\\ReactNative-Udemy\\Tasks\\android\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "16",
+                        "endColumns": "42",
+                        "endOffsets": "54"
+                    },
+                    "to": {
+                        "startLines": "323",
+                        "startColumns": "4",
+                        "startOffsets": "20784",
+                        "endColumns": "42",
+                        "endOffsets": "20822"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\clint\\OneDrive\\Desktop\\ReactNative-Udemy\\Tasks\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "54",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "267"
+                    },
+                    "to": {
+                        "startLines": "390",
+                        "startColumns": "4",
+                        "startOffsets": "28484",
+                        "endLines": "393",
+                        "endColumns": "12",
+                        "endOffsets": "28662"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\clint\\OneDrive\\Desktop\\ReactNative-Udemy\\Tasks\\android\\app\\build\\generated\\res\\resValues\\debug\\values\\gradleResValues.xml",
+                    "from": {
+                        "startLines": "6,8",
+                        "startColumns": "4,4",
+                        "startOffsets": "159,265",
+                        "endColumns": "63,68",
+                        "endOffsets": "218,329"
+                    },
+                    "to": {
+                        "startLines": "291,292",
+                        "startColumns": "4,4",
+                        "startOffsets": "18515,18579",
+                        "endColumns": "63,68",
+                        "endOffsets": "18574,18643"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\clint\\.gradle\\caches\\transforms-3\\b4db2f23f2ab214a51186ce21dfe946e\\transformed\\jetified-react-android-0.73.4-debug\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,81,85,89,92,96,100,103,106,107,108,117,124,131,134,137,140,146,149",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -130,23 +183,6 @@
                         "endLines": "30,31,200,201,202,235,236,237,238,239,240,241,250,251,254,257,258,277,278,280,281,321,324,325,326,327,328,329,330,331,332,333,334,335,336,337,338,339,340,341,342,343,344,345,346,347,348,349,350,351,352,353,354,355,356,357,358,359,360,361,362,364,365,366,367,368,369,370,371,373,374,375,376,385,389,1480,1483,1487,1491,1709,1712,1786,1833,1842,1849,1856,1859,1862,1865,1871,1874,2027",
                         "endColumns": "62,62,50,53,58,47,48,48,47,48,57,48,49,40,43,42,33,38,45,53,47,116,122,95,119,119,101,118,110,106,102,110,168,167,116,109,114,112,185,107,112,90,110,168,97,126,124,94,106,169,97,182,172,111,100,158,133,139,101,104,130,168,116,147,144,149,98,95,195,182,98,183,166,10,10,12,12,10,10,12,12,25,34,10,10,10,10,10,12,12,12,10",
                         "endOffsets": "2196,2259,13634,13688,13747,15705,15754,15803,15851,15900,15958,16007,16479,16520,16634,16773,16807,17816,17862,17948,17996,20696,20945,21041,21161,21281,21383,21502,21613,21720,21823,21934,22103,22271,22388,22498,22613,22726,22912,23020,23133,23224,23335,23504,23602,23729,23854,23949,24056,24226,24324,24507,24680,24792,24893,25052,25186,25326,25428,25533,25664,25886,26003,26151,26296,26446,26545,26641,26837,27091,27190,27374,27541,28231,28479,97928,98113,98315,98521,113894,114083,121009,124063,124601,125019,125397,125574,125753,125936,126301,126498,137623"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\clint\\OneDrive\\Desktop\\ReactNative-Udemy\\tasks\\android\\app\\src\\main\\res\\values\\strings.xml",
-                    "from": {
-                        "startLines": "1",
-                        "startColumns": "4",
-                        "startOffsets": "16",
-                        "endColumns": "42",
-                        "endOffsets": "54"
-                    },
-                    "to": {
-                        "startLines": "323",
-                        "startColumns": "4",
-                        "startOffsets": "20784",
-                        "endColumns": "42",
-                        "endOffsets": "20822"
                     }
                 },
                 {
@@ -205,25 +241,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\clint\\OneDrive\\Desktop\\ReactNative-Udemy\\tasks\\android\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "3",
-                        "startColumns": "4",
-                        "startOffsets": "54",
-                        "endLines": "6",
-                        "endColumns": "12",
-                        "endOffsets": "267"
-                    },
-                    "to": {
-                        "startLines": "390",
-                        "startColumns": "4",
-                        "startOffsets": "28484",
-                        "endLines": "393",
-                        "endColumns": "12",
-                        "endOffsets": "28662"
-                    }
-                },
-                {
                     "source": "C:\\Users\\clint\\.gradle\\caches\\transforms-3\\c2c67d6ef97116786f5e00cacbb4d36d\\transformed\\lifecycle-runtime-2.5.1\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2",
@@ -274,23 +291,6 @@
                         "startOffsets": "18158",
                         "endColumns": "49",
                         "endOffsets": "18203"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\clint\\OneDrive\\Desktop\\ReactNative-Udemy\\tasks\\android\\app\\build\\generated\\res\\resValues\\debug\\values\\gradleResValues.xml",
-                    "from": {
-                        "startLines": "6,8",
-                        "startColumns": "4,4",
-                        "startOffsets": "159,265",
-                        "endColumns": "63,68",
-                        "endOffsets": "218,329"
-                    },
-                    "to": {
-                        "startLines": "291,292",
-                        "startColumns": "4,4",
-                        "startOffsets": "18515,18579",
-                        "endColumns": "63,68",
-                        "endOffsets": "18574,18643"
                     }
                 },
                 {

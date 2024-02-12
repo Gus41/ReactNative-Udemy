@@ -4,23 +4,6 @@
             "outputFile": "com.tasks.app-mergeDebugResources-26:/values-ne/values-ne.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\clint\\.gradle\\caches\\transforms-3\\ff34738e7fb960ce73fd0d6cf687f2a8\\transformed\\jetified-react-android-0.73.3-debug\\res\\values-ne\\values-ne.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "55,132,200,279,347,414,484",
-                        "endColumns": "76,67,78,67,66,69,68",
-                        "endOffsets": "127,195,274,342,409,479,548"
-                    },
-                    "to": {
-                        "startLines": "29,30,31,32,33,35,36",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "2865,2942,3010,3089,3157,3304,3374",
-                        "endColumns": "76,67,78,67,66,69,68",
-                        "endOffsets": "2937,3005,3084,3152,3219,3369,3438"
-                    }
-                },
-                {
                     "source": "C:\\Users\\clint\\.gradle\\caches\\transforms-3\\13659b94c66de92d98d7f8af61234b95\\transformed\\core-1.9.0\\res\\values-ne\\values-ne.xml",
                     "from": {
                         "startLines": "2",
@@ -35,6 +18,23 @@
                         "startOffsets": "3443",
                         "endColumns": "100",
                         "endOffsets": "3539"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\clint\\.gradle\\caches\\transforms-3\\b4db2f23f2ab214a51186ce21dfe946e\\transformed\\jetified-react-android-0.73.4-debug\\res\\values-ne\\values-ne.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "55,132,200,279,347,414,484",
+                        "endColumns": "76,67,78,67,66,69,68",
+                        "endOffsets": "127,195,274,342,409,479,548"
+                    },
+                    "to": {
+                        "startLines": "29,30,31,32,33,35,36",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "2865,2942,3010,3089,3157,3304,3374",
+                        "endColumns": "76,67,78,67,66,69,68",
+                        "endOffsets": "2937,3005,3084,3152,3219,3369,3438"
                     }
                 },
                 {
