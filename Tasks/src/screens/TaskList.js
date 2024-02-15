@@ -27,6 +27,10 @@ export default class TaskList extends Component{
             }
         ]
     }
+    // será chamada sempre que o componente for montado
+    componentDidMount = ()=>{
+        this.filterTaks()
+    }
     toggleTask = (id)=>{
         const tasks = [...this.state.tasks]
         tasks.forEach(t=>{
@@ -35,10 +39,11 @@ export default class TaskList extends Component{
             }
         })
 
-        this.setState( {tasks} )
+        this.setState( {tasks}, this.filterTaks )
     }
     toggleFilter = ()=>{
-        this.setState ({showDoneTasks : !this.state.showDoneTasks})
+        this.setState ({showDoneTasks : !this.state.showDoneTasks},this.filterTaks)
+
     }
     filterTaks = ()=>{
         let visibleTasks = null
