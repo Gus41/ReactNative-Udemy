@@ -13,7 +13,7 @@ export default class TaskList extends Component{
     state = {
         showDoneTasks:true,
         visibleTasks: [],
-        showAddTaskModal:true,
+        showAddTaskModal:false,
         tasks:[
             {
                 id:Math.random(),
