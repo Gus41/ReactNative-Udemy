@@ -88,6 +88,10 @@ export default class TaskList extends Component{
                         renderItem={({item})=><Task {...item} toggleTask={this.toggleTask}/>}
                     />
                 </View>
+                <TouchableOpacity style={styles.addButton}
+                onPress={()=> this.setState({showAddTaskModal:true})}>
+                    <Text style={styles.text}>New</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -137,5 +141,20 @@ const styles = StyleSheet.create({
     },
     dontShow:{
         backgroundColor:"red"
+    },
+    addButton:{
+        position:'absolute',
+        right:25,
+        bottom:30,
+        width:50,
+        height:50,
+        borderRadius:25,
+        backgroundColor:commomStyles.color.todayColor,
+        justifyContent:"center",
+        alignItems:"center"
+    },
+    text:{
+        textAlign:'center',
+        color:"white"
     }
 })
