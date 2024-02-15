@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.tasks.app-mergeDebugResources-26:/values-ru/values-ru.xml",
+            "outputFile": "com.tasks.app-mergeDebugResources-27:/values-ru/values-ru.xml",
             "map": [
                 {
                     "source": "C:\\Users\\clint\\.gradle\\caches\\transforms-3\\b4db2f23f2ab214a51186ce21dfe946e\\transformed\\jetified-react-android-0.73.4-debug\\res\\values-ru\\values-ru.xml",

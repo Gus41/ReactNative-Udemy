@@ -89,6 +89,7 @@ export default class TaskList extends Component{
                     />
                 </View>
                 <TouchableOpacity style={styles.addButton}
+                activeOpacity={0.7}
                 onPress={()=> this.setState({showAddTaskModal:true})}>
                     <Text style={styles.text}>New</Text>
                 </TouchableOpacity>
