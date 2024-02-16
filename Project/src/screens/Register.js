@@ -1,8 +1,7 @@
 import { Image, StyleSheet, Text, TouchableWithoutFeedback, View, TextInput } from 'react-native';
 
 import { useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { saveData } from '../functions';
 export default (props)=>{
     const [name,setName] = useState('')
     const [height,setHeight] = useState(null)
@@ -16,13 +15,6 @@ export default (props)=>{
             setBoxes({one:false,two:true,three:false})
         }else if(id == 3){
             setBoxes({one:false,two:false,three:true})
-        }
-    }
-    const SaveData = async(data)=>{
-        try{
-            await AsyncStorage.setItem('User',JSON.stringify(data))
-        }catch(e){
-            console.log(e)
         }
     }
 
@@ -53,32 +45,30 @@ export default (props)=>{
                     />
                 </View>
                 <View style={styles.boxes}>
-                <TouchableWithoutFeedback 
-                 onPress={()=> toggleBoxes(1)}>
-                    <View style={[styles.box,boxes.one? styles.boxAble : false]}>
-                    </View>
-                </TouchableWithoutFeedback>
-                <Text style={[styles.text,{marginTop:5}]}>Masc</Text>
-                <TouchableWithoutFeedback 
-                    onPress={()=> toggleBoxes(2)}
-                >
-                    <View style={[styles.box,boxes.two? styles.boxAble : false]}>
-                    </View>
-                </TouchableWithoutFeedback>
-                <Text style={[styles.text,{marginTop:5}]}>Fem</Text>
-                <TouchableWithoutFeedback
-                    onPress={()=> toggleBoxes(3)}
-                >
+                    <TouchableWithoutFeedback 
+                    onPress={()=> toggleBoxes(1)}>
+                        <View style={[styles.box,boxes.one? styles.boxAble : false]}>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <Text style={[styles.text,{marginTop:5}]}>Masc</Text>
+                    <TouchableWithoutFeedback 
+                        onPress={()=> toggleBoxes(2)}
+                    >
+                        <View style={[styles.box,boxes.two? styles.boxAble : false]}>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <Text style={[styles.text,{marginTop:5}]}>Fem</Text>
+                    <TouchableWithoutFeedback
+                        onPress={()=> toggleBoxes(3)}
+                    >
                     <View style={[styles.box,boxes.three? styles.boxAble : false]}>
                     </View>
-                </TouchableWithoutFeedback>
-                <Text style={[styles.text,{marginTop:5}]}>N/I</Text>
-            </View>
-
-
+                    </TouchableWithoutFeedback>
+                    <Text style={[styles.text,{marginTop:5}]}>N/I</Text>
+                </View>
                 <TouchableWithoutFeedback 
                 onPress={()=>{
-                    SaveData({name,height,weight})
+                    saveData({name,height,weight})
                     props.navigation.navigate("Initial")
                     }}>
                     <View style={styles.button}>

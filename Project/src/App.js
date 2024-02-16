@@ -7,6 +7,7 @@ import Register from "./screens/Register";
 import Welcome from "./screens/Welcome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Initial from "./screens/Initial";
+import { firstAcces, saveDrinkValues } from "./functions";
 const Stack = createNativeStackNavigator()
 
 export default class App extends Component{
@@ -18,7 +19,7 @@ export default class App extends Component{
             const user = await AsyncStorage.getItem('User')
             console.log(user)
             if(user!= null){
-                console.log(user)
+                console.log("User: " + user)
                 this.setState({user:JSON.parse(user)})
                 return true
             }
@@ -28,25 +29,23 @@ export default class App extends Component{
         }
     }
     componentDidMount = async()=>{
+        if(firstAcces()){
+            saveDrinkValues({drinks:[500,1000,1500,2000]})
+        }
         const user = await AsyncStorage.getItem("User")
         if(user !== null){
             this.setState({user:JSON.parse(user)})
+            console.log(this.state)
+
             return
         }
         this.setState({user:null})
     }
     render = ()=>{
-        console.log(this.state.user)
         return(
             <NavigationContainer>
-                <Stack.Navigator initialRouteName={()=>{
-                    if(this.state.user == null){
-                        return 'Welcome'
-                    }else{
-                        return 'Initial'
-                    }
-                }} >
-                    <Stack.Screen name="Initial" component={Initial} options={{headerShown:false}}/>
+                <Stack.Navigator initialRouteName={this.state.user == null?'Initial':'Welcome'}>
+                    <Stack.Screen name="Initial"  component={Initial} options={{headerShown:false, animation:"simple_push"}}/>
                     <Stack.Screen name='Welcome' component={Welcome} options={{headerShown:false}} />
                     <Stack.Screen name="Register" component={Register} options={{headerShown:false}}/>
                 </Stack.Navigator>
@@ -54,45 +53,3 @@ export default class App extends Component{
         )
     }
 }
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#000018',
-      alignItems: 'center',
-      flexDirection:'column',
-    },
-    text:{
-      color:"#30D3F6",
-      textAlign:'center'
-    },
-    textTittle:{
-        color:"#30D3F6",
-        margin:10,
-        fontWeight:'400',
-        marginTop:50
-    },
-    logoContainer:{
-        alignItems:'center',
-        marginTop:60,
-    },
-    logo:{
-      width:60,
-      height:70
-    },
-    centerContain:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-        padding:5,
-        marginBottom:100
-    },
-    button:{
-        borderWidth:1,
-        borderColor:'#30D3F6',
-        width:200,
-        padding:10,
-        marginTop:100,
-        borderRadius:100
-        
-    }
-});

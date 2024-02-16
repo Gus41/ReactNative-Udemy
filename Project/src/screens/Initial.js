@@ -1,9 +1,10 @@
 import React from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image } from "react-native";
-import { getGoal } from "../functions";
+import { getGoal, getUserData } from "../functions";
 
 export default props=>{
-    return(
+  
+  return(
         <View style={styles.container}>
            <View style={styles.logoContainer}>
               <Image style={styles.logo} source={require('../../assets/drop.png')}/> 

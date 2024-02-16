@@ -7,7 +7,30 @@ async function getUserData(){
 function getGoal(user){
     return 2000
 }
-
-
-
-export {getUserData,getGoal}
+async function saveData(data){
+    try{
+        await AsyncStorage.setItem('User',JSON.stringify(data))
+    }catch(e){
+        console.log(e)
+    }
+}
+async function saveDrinkValues(values){
+    try{
+        await AsyncStorage.setItem('Drinks',JSON.stringify(values))
+    }catch(e){
+        console.log(e)
+    }
+}
+async function getDrinkValues(){
+    const drinkValues = await AsyncStorage.getItem('Drinks') 
+    return drinkValues
+}
+async function firstAcces(){
+    const drinkValues = await AsyncStorage.getItem('Drinks') 
+    if(drinkValues){
+        return false
+    }
+    console.log("PRIMEIRO ACESSO")
+    return true
+}
+export {getUserData,getGoal,saveData,firstAcces,saveDrinkValues}
