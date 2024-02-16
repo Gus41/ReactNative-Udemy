@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator()
 
 export default class App extends Component{
     state = {
-        initial : 'Welcome'
+        user:null
     }
     hasUser = async()=>{
         try{
@@ -19,6 +19,7 @@ export default class App extends Component{
             console.log(user)
             if(user!= null){
                 console.log(user)
+                this.setState({user:JSON.parse(user)})
                 return true
             }
             return false
@@ -27,22 +28,27 @@ export default class App extends Component{
         }
     }
     componentDidMount = async()=>{
-        const hasUser = await this.hasUser()
-        if(hasUser){
-            this.setState({initial:'Initial'})
-        }else{
-            this.setState({initial:'Welcome'})
+        const user = await AsyncStorage.getItem("User")
+        if(user !== null){
+            this.setState({user:JSON.parse(user)})
+            return
         }
-        console.log(this.state)
+        this.setState({user:null})
     }
     render = ()=>{
+        console.log(this.state.user)
         return(
             <NavigationContainer>
-                <Stack.Navigator initialRouteName={this.state.initial}>
+                <Stack.Navigator initialRouteName={()=>{
+                    if(this.state.user == null){
+                        return 'Welcome'
+                    }else{
+                        return 'Initial'
+                    }
+                }} >
+                    <Stack.Screen name="Initial" component={Initial} options={{headerShown:false}}/>
                     <Stack.Screen name='Welcome' component={Welcome} options={{headerShown:false}} />
                     <Stack.Screen name="Register" component={Register} options={{headerShown:false}}/>
-                    <Stack.Screen name="Initial" component={Initial} options={{headerShown:false}}/>
-
                 </Stack.Navigator>
             </NavigationContainer>
         )
@@ -89,4 +95,4 @@ const styles = StyleSheet.create({
         borderRadius:100
         
     }
-  });
+});

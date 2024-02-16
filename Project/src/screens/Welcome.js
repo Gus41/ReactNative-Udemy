@@ -9,7 +9,7 @@ export default props=>{
                 <Text style={styles.textTittle}>Bem vindo ao DrinkWater</Text>
             </View>
             <View style={styles.centerContain}>
-                <Text style={styles.text}>Vamos precisas de algumas informações suas para continuar nossa experiencia</Text>
+                <Text style={styles.text}>Vamos precisar de algumas informações suas para continuar nossa experiência</Text>
                 <TouchableOpacity
                 onPress={()=> props.navigation.navigate("Register")}>
                     <View  style={styles.button}>
