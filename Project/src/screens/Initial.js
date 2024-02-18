@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image } from "react-native";
 import { getGoal, getUserData } from "../functions";
-
+import Drinks from "../components/Drinks";
+import { getDrinkValues } from "../functions";
 export default props=>{
-  
+  const [showDrinks,setShowDrinks] = useState(false)
+  const toggle = ()=>{
+    setShowDrinks(!showDrinks)
+  }
   return(
         <View style={styles.container}>
            <View style={styles.logoContainer}>
@@ -13,7 +17,9 @@ export default props=>{
            <View>
 
            </View>
-           <TouchableOpacity style={styles.button}>
+           <Drinks drinkValues={getDrinkValues()} toggle={toggle} show={showDrinks} />
+           <TouchableOpacity style={styles.button}
+           onPress={toggle}>
               <Text style={{color:"white",textAlign:'center'}}>+</Text>
            </TouchableOpacity>
            <Text style={styles.textBottom}>Seja sua melhor versão</Text>

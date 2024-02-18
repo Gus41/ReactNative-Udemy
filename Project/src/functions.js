@@ -23,7 +23,7 @@ async function saveDrinkValues(values){
 }
 async function getDrinkValues(){
     const drinkValues = await AsyncStorage.getItem('Drinks') 
-    return drinkValues
+    return JSON.parse(drinkValues)
 }
 async function firstAcces(){
     const drinkValues = await AsyncStorage.getItem('Drinks') 
@@ -33,4 +33,4 @@ async function firstAcces(){
     console.log("PRIMEIRO ACESSO")
     return true
 }
-export {getUserData,getGoal,saveData,firstAcces,saveDrinkValues}
+export {getUserData,getGoal,saveData,firstAcces,saveDrinkValues,getDrinkValues}
