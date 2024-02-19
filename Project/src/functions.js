@@ -34,4 +34,4 @@ async function firstAcces(){
     console.log("PRIMEIRO ACESSO")
     return true
 }
-export {getUserData,saveData,firstAcces,saveDrinkValues,getDrinkValues}
+export {getUserData,firstAcces,saveDrinkValues,getDrinkValues}

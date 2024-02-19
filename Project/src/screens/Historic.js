@@ -1,23 +1,22 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image } from "react-native";
 
-
+async function getAtualDay(){
+    const data = await AsyncStorage.getItem("AtualDay")
+    return JSON.parse(data)
+}
 export default props=>{
+
+
     return(
         <View style={styles.container}>
            <View style={styles.logoContainer}>
                 <Image style={styles.logo} source={require('../../assets/drop.png')}/> 
-                <Text style={styles.textTittle}>Bem vindo ao DrinkWater</Text>
+                <Text style={styles.textTittle}>Histórico do dia</Text>
             </View>
-            <View style={styles.centerContain}>
-                <Text style={styles.text}>Vamos precisar de algumas informações suas para continuar nossa experiência</Text>
-                <TouchableOpacity
-                onPress={()=> props.navigation.navigate("Register")}>
-                    <View  style={styles.button}>
-                        <Text style={styles.text}>Continuar</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
+
+
         </View>
     )
 }

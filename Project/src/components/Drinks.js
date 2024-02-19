@@ -38,19 +38,28 @@ export default (props)=>{
                     </TouchableOpacity>
                 </View>
                 <View style={styles.drinks}>
-                    <TouchableOpacity style={styles.drink}>
+                    <TouchableOpacity style={styles.drink}
+                        onPress={()=>props.Add(drinks[0])}
+                    >
                         <Image source={require('../../assets/drinkOne.png')} />
                         <Text style={styles.text}>{drinks[0]} ml</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.drink}>
+                    <TouchableOpacity style={styles.drink}
+                        onPress={()=>props.Add(drinks[1])}
+
+                    >
                         <Image source={require('../../assets/drinkTwo.png')} />
                         <Text style={styles.text}>{drinks[1]} ml</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.drink}>
+                    <TouchableOpacity style={styles.drink}
+                        onPress={()=>props.Add(drinks[2])}
+                    >
                         <Image source={require('../../assets/drinkOne.png')} />
                         <Text style={styles.text}>{drinks[2]} ml</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.drink}>
+                    <TouchableOpacity style={styles.drink}
+                        onPress={()=>props.Add(drinks[3])}
+                    >
                         <Image source={require('../../assets/drinkOne.png')} />
                         <Text style={styles.text}>{drinks[3]} ml</Text>
                     </TouchableOpacity>

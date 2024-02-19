@@ -1,9 +1,16 @@
 import { Image, StyleSheet, Text, TouchableWithoutFeedback, View, TextInput } from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
-import { saveData } from '../functions';
+async function saveData(data){
+    try{
+        await AsyncStorage.setItem('User',JSON.stringify(data))
+    }catch(e){
+        console.log(e)
+    }
+}
+
 export default (props)=>{
-    
+
     const [name,setName] = useState('')
     const [height,setHeight] = useState(null)
     const [weight,setWeight] = useState(null)
