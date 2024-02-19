@@ -17,20 +17,30 @@ export default class App extends Component{
     }
 
     componentDidMount = async()=>{
+        try{
+            console.log("=============")
+            const atualDay = await AsyncStorage.getItem("AtualDay")
+            const user = await AsyncStorage.getItem("User")
+            const drinks = await AsyncStorage.getItem("Drinks")
+            if(atualDay == null){
+                await AsyncStorage.setItem("AtualDay",JSON.stringify({day: new Date(), historic:[]}))
+            }
+            console.log("===========DATABASE========== ")
+            console.log("Drinks : " + drinks)
+            console.log("User: " + user)
+            console.log("AtualDay: " + atualDay)
 
-        const user = await AsyncStorage.getItem("User")
-        const drinks = await AsyncStorage.getItem("Drinks")
-        console.log("===========DATABASE========== ")
-        console.log(drinks)
-        console.log(user)
-        if(user !== null){
+            if(user !== null){
 
-            this.setState({user:JSON.parse(user),initialRouteName:'Initial'})
-            return
+                this.setState({user:JSON.parse(user),initialRouteName:'Initial'})
+                return
+            }
+            await AsyncStorage.setItem("Drinks",JSON.stringify([500,1000,1500,2000]))
+            this.setState({initialRouteName:'Welcome'})
+            console.log("Valores salvos no banco de dados")
+        }catch(e){
+            console.log(e)
         }
-        await AsyncStorage.setItem("Drinks",JSON.stringify([500,1000,1500,2000]))
-        this.setState({initialRouteName:'Welcome'})
-        console.log("Valores salvos no banco de dados")
     }
     render = ()=>{
         console.log(this.state)

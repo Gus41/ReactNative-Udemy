@@ -70,7 +70,7 @@ export default (props)=>{
 }
 const styles = StyleSheet.create({
     exit:{
-        backgroundColor:'transparent',
+        backgroundColor:'rgba(0,0,0,0.5)',
         flex:1
     },
     drink:{

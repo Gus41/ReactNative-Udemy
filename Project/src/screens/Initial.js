@@ -4,6 +4,7 @@ import { getGoal, getUserData } from "../functions";
 import Drinks from "../components/Drinks";
 import { getDrinkValues } from "../functions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CommonActions } from "@react-navigation/native";
 
 async function getUser (){
   const u = await AsyncStorage.getItem("User")
@@ -26,23 +27,59 @@ export default props=>{
   const getGoal = ()=>{
     return 200
   }
-  function Add(value){
-    setAtualDay(atualDay+value)
+  async function Add(value){
+    try{
+      let atualDay = await getAtualDay()
+      atualDay.amount += parseFloat(value)
+      console.log(atualDay)
+      await AsyncStorage.setItem("AtualDay",JSON.stringify(atualDay))
+      toggle()
+    }catch(e){
+      console.log(e)
+    }
   }
-  console.log(atualDay)
+  async function getAtualDay(){
+    const data = await AsyncStorage.getItem("AtualDay")
+    return JSON.parse(data)
+  }
+  const updateDay = async ()=>{
+    try{
+      let AtualDB = await AsyncStorage.getItem("AtualDay")
+      if(AtualDB==null){
+        return
+      }
+      AtualDB = JSON.parse(AtualDB)
+      setAtualDay(AtualDB.amount)
+    }catch(e){
+      console.log(e)
+    }
+  }
+  updateDay()
   return(
         <View style={styles.container}>
-          <TouchableOpacity style={styles.historic} 
+          <TouchableOpacity 
             onPress={()=>props.navigation.navigate("Historic")}
           >
-            <Text style={styles.text}>Histórico</Text>
+            <View style={
+              {
+                width:'100%',
+                display:'flex',
+                justifyContent:"flex-end",
+                flexDirection:'row',
+                padding:10
+              }
+            }>
+              <Image source={require("../../assets/historic.png")} 
+                style={styles.historic}            
+              />
+            </View>
           </TouchableOpacity>
            <View style={styles.logoContainer}>
               <Image style={styles.logo} source={require('../../assets/drop.png')}/> 
               <Text style={styles.text}>Meta: {getGoal()} ml</Text>
            </View>
            <View>
-
+            <Text style={styles.text}>{atualDay}</Text>
            </View>
            <Drinks Add={Add} goInitial={goInitial} goEdit={goEdit} drinkValues={getDrinkValues()} toggle={toggle} show={showDrinks} />
            <TouchableOpacity style={styles.button}
@@ -55,8 +92,9 @@ export default props=>{
 }
 const styles = StyleSheet.create({
     historic:{
-      position:'relative',
-      left:160
+      marginTop:10,
+      width:30,
+      height:30
     },
     container: {
       flex: 1,
@@ -79,18 +117,21 @@ const styles = StyleSheet.create({
     logoContainer:{
         alignItems:'center',
         marginTop:100,
+        position:'relative'
     },
     logo:{
       width:60,
       height:70,
-      marginBottom:10
+      marginBottom:10,
+      position:"relative"
     },
     centerContain:{
         flex:1,
         justifyContent:'center',
         alignItems:'center',
         padding:5,
-        marginBottom:100
+        marginBottom:100,
+        position:"relative"
     },
     button:{
         borderWidth:1,
