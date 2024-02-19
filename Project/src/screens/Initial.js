@@ -3,10 +3,22 @@ import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableO
 import { getGoal, getUserData } from "../functions";
 import Drinks from "../components/Drinks";
 import { getDrinkValues } from "../functions";
+
+
 export default props=>{
   const [showDrinks,setShowDrinks] = useState(false)
-  const toggle = ()=>{
+  const toggle = async ()=>{
     setShowDrinks(!showDrinks)
+  }
+  const goEdit = ()=>{
+    toggle()
+    props.navigation.navigate("Edit",goInitial)
+  }
+  const goInitial = ()=>{
+    props.navigation.navigate("Initial")
+  }
+  const getGoal = ()=>{
+    return 200
   }
   return(
         <View style={styles.container}>
@@ -17,7 +29,7 @@ export default props=>{
            <View>
 
            </View>
-           <Drinks drinkValues={getDrinkValues()} toggle={toggle} show={showDrinks} />
+           <Drinks goInitial={goInitial} goEdit={goEdit} drinkValues={getDrinkValues()} toggle={toggle} show={showDrinks} />
            <TouchableOpacity style={styles.button}
            onPress={toggle}>
               <Text style={{color:"white",textAlign:'center'}}>+</Text>

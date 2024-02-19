@@ -6,7 +6,8 @@ import Register from "./screens/Register";
 import Welcome from "./screens/Welcome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Initial from "./screens/Initial";
-import { firstAcces, saveDrinkValues } from "./functions";
+import { firstAcces, getDrinkValues, saveDrinkValues } from "./functions";
+import Edit from "./screens/Edit";
 const Stack = createNativeStackNavigator()
 
 export default class App extends Component{
@@ -27,24 +28,31 @@ export default class App extends Component{
         }
     }
     componentDidMount = async()=>{
-        if(firstAcces()){
-            saveDrinkValues([500,1000,1500,2000])
-            this.setState({drinks:[500,1000,1500,2000]})   
-        }
+
         const user = await AsyncStorage.getItem("User")
+        console.log(user)
         if(user !== null){
             this.setState({user:JSON.parse(user)})
             return
         }
+        await AsyncStorage.setItem("Drinks",[500,1000,1500,2000])
         this.setState({user:null})
     }
     render = ()=>{
+        console.log(this.state.user)
+        let i 
+        if(!this.state.user){
+            i = 'Initial'
+        }else{
+            i = 'Welcome'
+        }
         return(
             <NavigationContainer>
-                <Stack.Navigator initialRouteName={this.state.user == null?'Welcome':'Welcome'}>
-                    <Stack.Screen name="Initial"  component={Initial} options={{headerShown:false, animation:"simple_push"}}/>
+                <Stack.Navigator initialRouteName={i}>
+                    <Stack.Screen name="Initial"  component={Initial} options={{headerShown:false, animation:"slide_from_left"}}/>
                     <Stack.Screen name='Welcome' component={Welcome} options={{headerShown:false}} />
                     <Stack.Screen name="Register" component={Register} options={{headerShown:false}}/>
+                    <Stack.Screen name="Edit" component={Edit} options={{headerShown:false}} />
                 </Stack.Navigator>
             </NavigationContainer>
         )

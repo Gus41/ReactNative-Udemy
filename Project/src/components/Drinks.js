@@ -1,14 +1,34 @@
 import React from "react";
-import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState } from "react";
 
 export default (props)=>{
-    const drinks = props.drinkValues
-    console.log(drinks)
+    const [drinks,setDrinks] = useState([500,1000,1500,2000])
+
+    const updateDrinks = async ()=>{
+        try{
+          let drinksDB = await AsyncStorage.getItem("Drinks")
+          if(drinksDB==null){
+            return
+          }
+          drinksDB = JSON.parse(drinksDB)
+          setDrinks(drinksDB)
+        }catch(e){
+          console.log(e)
+        }
+      }
+      updateDrinks()
+    
     return(
-        <Modal animationType="slide" transparent={true} visible={!props.show} style={styles.modal}>
+        <Modal animationType="slide" transparent={true} visible={props.show} style={styles.modal}>
+            <TouchableWithoutFeedback
+            onPress={()=> props.toggle()}>
+            <View style={styles.exit}></View>
+            </TouchableWithoutFeedback>
             <View style={styles.container} >
                 <View style={styles.header}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>props.goEdit()}>
                         <View>
                             <Image source={require('../../assets/gear.png')} />
                         </View>
@@ -20,19 +40,19 @@ export default (props)=>{
                 <View style={styles.drinks}>
                     <TouchableOpacity style={styles.drink}>
                         <Image source={require('../../assets/drinkOne.png')} />
-                        <Text style={styles.text}>500ml</Text>
+                        <Text style={styles.text}>{drinks[0]} ml</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.drink}>
                         <Image source={require('../../assets/drinkTwo.png')} />
-                        <Text style={styles.text}>1.000ml</Text>
+                        <Text style={styles.text}>{drinks[1]} ml</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.drink}>
                         <Image source={require('../../assets/drinkOne.png')} />
-                        <Text style={styles.text}>500ml</Text>
+                        <Text style={styles.text}>{drinks[2]} ml</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.drink}>
                         <Image source={require('../../assets/drinkOne.png')} />
-                        <Text style={styles.text}></Text>
+                        <Text style={styles.text}>{drinks[3]} ml</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -40,6 +60,10 @@ export default (props)=>{
     )
 }
 const styles = StyleSheet.create({
+    exit:{
+        backgroundColor:'transparent',
+        flex:1
+    },
     drink:{
         flexDirection:'column',
         justifyContent:'center',

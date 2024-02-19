@@ -4,9 +4,7 @@ async function getUserData(){
     const user = await AsyncStorage.getItem('User')
     return JSON.parse(user) 
 }
-function getGoal(user){
-    return 2000
-}
+
 async function saveData(data){
     try{
         await AsyncStorage.setItem('User',JSON.stringify(data))
@@ -17,13 +15,16 @@ async function saveData(data){
 async function saveDrinkValues(values){
     try{
         await AsyncStorage.setItem('Drinks',JSON.stringify(values))
+        console.log('Valores salvos no banco de dados')
+        const items = await AsyncStorage.getItem("Drinks")
+        console.log(items)
     }catch(e){
         console.log(e)
     }
 }
 async function getDrinkValues(){
     const drinkValues = await AsyncStorage.getItem('Drinks') 
-    return JSON.parse(drinkValues)
+    return [...drinkValues]
 }
 async function firstAcces(){
     const drinkValues = await AsyncStorage.getItem('Drinks') 
@@ -33,4 +34,4 @@ async function firstAcces(){
     console.log("PRIMEIRO ACESSO")
     return true
 }
-export {getUserData,getGoal,saveData,firstAcces,saveDrinkValues,getDrinkValues}
+export {getUserData,saveData,firstAcces,saveDrinkValues,getDrinkValues}

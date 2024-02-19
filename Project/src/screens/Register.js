@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, TouchableWithoutFeedback, View, TextInput } fr
 import { useState } from 'react';
 import { saveData } from '../functions';
 export default (props)=>{
+    
     const [name,setName] = useState('')
     const [height,setHeight] = useState(null)
     const [weight,setWeight] = useState(null)
@@ -68,7 +69,7 @@ export default (props)=>{
                 </View>
                 <TouchableWithoutFeedback 
                 onPress={()=>{
-                    saveData({name,height,weight})
+                    saveData({name,height,weight,sex:boxes.one?'M':boxes.two?'F':'N/I'})
                     props.navigation.navigate("Initial")
                     }}>
                     <View style={styles.button}>
