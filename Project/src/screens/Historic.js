@@ -3,37 +3,46 @@ import React, { useContext, useState, useSyncExternalStore } from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image, FlatList } from "react-native";
 import Drop from "../components/Drop";
 import DayContext from "../../context/DayContext";
+import moment from "moment";
+import 'moment/locale/pt-br'
+
+async function updateDay(newHistoric){
+    let values = []
+    for(let i = 0 ; i < newHistoric.length ; i ++){
+        values.push(newHistoric[i].amount)
+    }
+    const day = {
+        day:moment().locale('pt-br').format("DD/MM"),
+        historic:[...values],
+        amount: 0
+    }
+    console.log("Objeto que será salvo para substituir o")
+    console.log("AtualDay:")
+    console.log(day)
+    console.log("++++++++++++++++")
+    try{
+        await AsyncStorage.setItem("AtualDay",JSON.stringify(day))
+    }catch(e){
+        console.log(e)
+    }
+}
+
 
 export default props=>{
     const { state, dispatch } = useContext(DayContext)
-    const [firstRead,setFirstRead] = useState(false)
-    function convertData (values){
-        if(firstRead){
-            return
-        }
-        let objects = []
-        for(let i = 0 ; i < values.length ; i ++){
-            objects.push({
-                id:i+1,
-                amount:values[i]
-            })
-        }
-        setFirstRead(true)
-        return objects
-    }
+    
     console.log("-------------------------")
     let historic = state._j.historic
     let arr_hist = []
-    arr_hist = historic.map(e=>{
+    historic.map(e=>{
         let data = {
             amount:e,
             id:arr_hist.length + 1
         }
         arr_hist.push(data)
     })
-    console.log("=================")
-    console.log(arr_hist)
-    const [data,setData] = useState(historic)
+  
+    const [data,setData] = useState(arr_hist)
 
     const DeleteValue = (id)=>{
         let dataClone = []
@@ -44,11 +53,9 @@ export default props=>{
         }
         //console.log("DATACLONE::::")
        // console.log(dataClone)
-        dispatch({
-            type:'delete',
-            payload:dataClone
-        })
+        
         setData(dataClone)
+        updateDay(dataClone)
     }
     return(
         <View style={styles.container}>

@@ -28,20 +28,7 @@ export const DayProvider = props=>{
             return getDay()
         }
         if(action.type == 'delete'){
-            console.log("==============PAYLOAD=============")
-            console.log(action.payload)
-            console.log("==============PAYLOAD=============")
-            //{day: new Date(), historic:[]}
-            //pegar o valor do amount de cada objeto e colocar no historic do dia atual
-            let historic = []
-            for(let i = 0 ; i < action.payload.length ; i++){
-                console.log("--------\n")
-                console.log(action.payload[i].amount)
-                historic.push(action.payload[i].amount)
-            }
-            const date = moment().locale('pt-br').format('DD/MM')
-            console.log("Dia : " + date)
-
+           
         }
 
         return state
