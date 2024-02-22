@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image } from "react-native";
 import { getGoal, getUserData } from "../functions";
 import Drinks from "../components/Drinks";
 import { getDrinkValues } from "../functions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { CommonActions } from "@react-navigation/native";
+import DayContext from "../../context/DayContext";
 
 async function getUser (){
   const u = await AsyncStorage.getItem("User")
@@ -13,10 +13,14 @@ async function getUser (){
 export default props=>{
   const [showDrinks,setShowDrinks] = useState(false)
   const [atualDay,setAtualDay] = useState(0)
+  const { dispatch } = useContext(DayContext)
+
+
+
   const toggle = async ()=>{
     setShowDrinks(!showDrinks)
   }
-  const user = getUser()
+
   const goEdit = ()=>{
     toggle()
     props.navigation.navigate("Edit")
@@ -30,9 +34,13 @@ export default props=>{
   async function Add(value){
     try{
       let atualDay = await getAtualDay()
+      atualDay.historic.push(parseFloat(value))
       atualDay.amount += parseFloat(value)
       console.log(atualDay)
       await AsyncStorage.setItem("AtualDay",JSON.stringify(atualDay))
+      dispatch({
+        type:'reload'
+      })
       toggle()
     }catch(e){
       console.log(e)
@@ -58,7 +66,7 @@ export default props=>{
   return(
         <View style={styles.container}>
           <TouchableOpacity 
-            onPress={()=>props.navigation.navigate("Historic")}
+            onPress={()=>props.navigation.navigate('Historic')}
           >
             <View style={
               {

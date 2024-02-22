@@ -1,14 +1,39 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState, useSyncExternalStore } from "react";
+import React, { useContext, useState, useSyncExternalStore } from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image, FlatList } from "react-native";
 import Drop from "../components/Drop";
+import DayContext from "../../context/DayContext";
 
-async function getAtualDay(){
-    const data = await AsyncStorage.getItem("AtualDay")
-    return JSON.parse(data)
-}
 export default props=>{
-    const [data,setData] = useState([{date:new Date(),id:1,amount:1500},{date:new Date(),id:2,amount:1000},{date:new Date(),id:3,amount:1500},{date:new Date(),id:4,amount:1000}])
+    const { state, dispatch } = useContext(DayContext)
+    const [firstRead,setFirstRead] = useState(false)
+    function convertData (values){
+        if(firstRead){
+            return
+        }
+        let objects = []
+        for(let i = 0 ; i < values.length ; i ++){
+            objects.push({
+                id:i+1,
+                amount:values[i]
+            })
+        }
+        setFirstRead(true)
+        return objects
+    }
+    console.log("-------------------------")
+    let historic = state._j.historic
+    let arr_hist = []
+    arr_hist = historic.map(e=>{
+        let data = {
+            amount:e,
+            id:arr_hist.length + 1
+        }
+        arr_hist.push(data)
+    })
+    console.log("=================")
+    console.log(arr_hist)
+    const [data,setData] = useState(historic)
 
     const DeleteValue = (id)=>{
         let dataClone = []
@@ -17,6 +42,12 @@ export default props=>{
                 dataClone.push(data[i])
             }
         }
+        //console.log("DATACLONE::::")
+       // console.log(dataClone)
+        dispatch({
+            type:'delete',
+            payload:dataClone
+        })
         setData(dataClone)
     }
     return(
@@ -25,10 +56,11 @@ export default props=>{
                 <Image style={styles.logo} source={require('../../assets/drop.png')}/> 
                 <Text style={styles.textTittle}>Histórico do dia</Text>
                 <View style={styles.drinkContainer}>
-                    <FlatList data={data}
-                    renderItem={item=>{
+                    <FlatList
+                    data={data}
+                    renderItem={(item)=>{
                         return(
-                            <Drop delete={DeleteValue} id={item.item.id} amount={item.item.amount} />
+                            <Drop  amount={item.item.amount} id={item.item.id}  delete={DeleteValue}/>
                         )
                     }}
                     />

@@ -77,7 +77,7 @@ export default (props)=>{
                 <TouchableWithoutFeedback 
                 onPress={()=>{
                     saveData({name,height,weight,sex:boxes.one?'M':boxes.two?'F':'N/I'})
-                    props.navigation.navigate("Initial")
+                    props.navigation.navigate("front")
                     }}>
                     <View style={styles.button}>
                         <Text style={styles.text}>Continuar</Text>
