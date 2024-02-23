@@ -7,27 +7,18 @@ import "moment/locale/pt-br"
 import commomStyles from "../commomStyles"
 import Task from "../components/Task"
 import AddTask from "./AddTask"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
-export default class TaskList extends Component{
-
-    state = {
+const initialState ={
         showDoneTasks:true,
         visibleTasks: [],
         showAddTaskModal:false,
-        tasks:[
-            {
-                id:Math.random(),
-                desc:"Comprar Livro",
-                estimateAt: new Date(),
-                doneAt: new Date()
-            },
-            {
-                id:Math.random(),
-                desc:"Ler Livro",
-                estimateAt: new Date(),
-                doneAt: null
-            }
-        ]
+        tasks:[]
+}
+export default class TaskList extends Component{
+
+    state = {
+        ...initialState
     }
 
 
@@ -47,8 +38,13 @@ export default class TaskList extends Component{
 
     }
     // será chamada sempre que o componente for montado
-    componentDidMount = ()=>{
+    componentDidMount = async ()=>{
+        const state_str = await AsyncStorage.getItem('state')
+        const state = JSON.parse(state_str) || initialState
+        this.setState(state)
+
         this.filterTaks()
+
     }
     toggleTask = (id)=>{
         const tasks = [...this.state.tasks]
@@ -74,6 +70,7 @@ export default class TaskList extends Component{
         }
 
         this.setState({visibleTasks})
+        AsyncStorage.setItem('state',JSON.stringify(this.state))
     }
     deleteTask = (id)=>{
         const tasks = this.state.tasks.filter(t => t.id != id)
