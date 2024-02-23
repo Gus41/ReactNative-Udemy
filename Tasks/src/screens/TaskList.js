@@ -1,4 +1,4 @@
-import { FlatList, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { Alert, FlatList, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import React from "react"
 import { Component } from "react"
 import todayImage from '../../assets/imgs/today.jpg'
@@ -28,6 +28,23 @@ export default class TaskList extends Component{
                 doneAt: null
             }
         ]
+    }
+
+
+    addTask = (newTask)=>{
+        if(!newTask.desc || !newTask.desc.trim()){
+            Alert.alert("Dados inválidos","Informe a descrição")
+            return
+        }
+        const tasks = [...this.state.tasks]
+        tasks.push({
+            id:Math.random(),
+            desc:newTask.desc,
+            estimateAt:newTask.date,
+            doneAt:null
+        })
+        this.setState({tasks,showAddTaskModal:false},this.filterTaks)
+
     }
     // será chamada sempre que o componente for montado
     componentDidMount = ()=>{
@@ -65,7 +82,7 @@ export default class TaskList extends Component{
                 <AddTask 
                 isVisible = {this.state.showAddTaskModal} 
                 onCancel = {()=> this.setState({showAddTaskModal : false})}
-                
+                onSave = {this.addTask}
                 />
                 <ImageBackground
                 style={styles.background} 

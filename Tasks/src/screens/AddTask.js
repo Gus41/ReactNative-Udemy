@@ -3,13 +3,23 @@ import { Component } from "react";
 import { Modal, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import commomStyles from "../commomStyles";
 import DatePicker from "react-native-date-picker";
-import RNDateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 const initialState = { desc : '', date: new Date(), showDatePicker : false}
 
 export default class AddTask extends Component{
     state = {
         ...initialState
+    }
+
+    save = ()=>{
+        const newTask = {
+            desc: this.state.desc,
+            date: this.state.date
+        }
+        if(this.props.onSave){
+            this.props.onSave(newTask)
+            this.setState({...initialState})
+        }
     }
 
     getDateTimePicker = ()=>{
@@ -58,7 +68,8 @@ export default class AddTask extends Component{
                         <TouchableOpacity onPress={this.props.onCancel}>
                             <Text style={styles.button}>Cancelar</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                        onPress={this.save}>
                             <Text style={styles.button}>Salvar</Text>
                         </TouchableOpacity>
                     </View>
