@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 // react-native-date-picker
 import com.henninghall.date_picker.DatePickerPackage;
+// react-native-gesture-handler
+import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 
 public class PackageList {
   private Application application;
@@ -61,7 +63,8 @@ public class PackageList {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(mConfig),
       new RNDateTimePickerPackage(),
-      new DatePickerPackage()
+      new DatePickerPackage(),
+      new RNGestureHandlerPackage()
     ));
   }
 }

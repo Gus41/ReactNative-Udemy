@@ -75,6 +75,10 @@ export default class TaskList extends Component{
 
         this.setState({visibleTasks})
     }
+    deleteTask = (id)=>{
+        const tasks = this.state.tasks.filter(t => t.id != id)
+        this.setState({tasks},this.filterTaks())
+    }
     render(){
         const today = moment().locale('pt-br').format('ddd,D [de] MMMM')
         return(
@@ -102,7 +106,7 @@ export default class TaskList extends Component{
                 <View style={styles.taskContainer}>
                     <FlatList data={this.state.visibleTasks} 
                         keyExtractor={item=>`${item.id}`}
-                        renderItem={({item})=><Task {...item} toggleTask={this.toggleTask}/>}
+                        renderItem={({item})=><Task onDelete={this.deleteTask} {...item} toggleTask={this.toggleTask}/>}
                     />
                 </View>
                 <TouchableOpacity style={styles.addButton}
