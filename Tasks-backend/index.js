@@ -1,9 +1,15 @@
 const express = require("express")
 const app = express()
 
-app.get('/',(req,res)=>{
-    res.status(200).send("BackEnd")
+app.get('/:value',(req,res)=>{
+    res.status(200).send("Teste")
+    console.log(req.params.value)
 })
-app.listen(300, ()=>{
+
+
+
+
+
+app.listen(3000, ()=>{
     console.log("Backend sendo executado...")
 })
