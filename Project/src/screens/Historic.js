@@ -41,7 +41,7 @@ export default props=>{
         }
         arr_hist.push(data)
     })
-  
+    
     const [data,setData] = useState(arr_hist)
 
     const DeleteValue = (id)=>{
