@@ -6,95 +6,59 @@ import Register from "./screens/Register";
 import Welcome from "./screens/Welcome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Initial from "./screens/Initial";
-import Edit from "./screens/Edit";
-import Historic from "./screens/Historic";
-import { DayProvider } from "../context/DayContext";
-import moment from "moment";
+
+
 
 const Stack = createNativeStackNavigator()
-
+const initialState = {
+    user:null,
+    atualDay:null,
+    initialRouteName:'Welcome',
+    historic:null
+}
 export default class App extends Component{
     state = {
-        user:null,
-        atualDay:null,
-        initialRouteName:'Initial'
+       ...initialState
     }
-    updateDay = ()=>{
 
-    }
     componentDidMount = async()=>{
         try{
-            console.log("=============")
-            const atualDay = await AsyncStorage.getItem("AtualDay")
-            const user = await AsyncStorage.getItem("User")
-            const drinks = await AsyncStorage.getItem("Drinks")
-            if(atualDay == null){
-                await AsyncStorage.setItem("AtualDay",JSON.stringify({day:moment().locale('pt-br').format('DD/MM'), historic:[]}))
-            }else{
-                this.setState({atualDay: JSON.parse(atualDay)})
-            }
-            console.log("===========DATABASE========== ")
-            console.log("Drinks : " + drinks)
-            console.log("User: " + user)
-            console.log("AtualDay: " + atualDay)
+            const state_str = await AsyncStorage.getItem("state")
+            const state_obj = JSON.parse(state_str)
+            const state = state_obj || initialState
+            this.setState({...state})
 
-            if(user !== null){
-
-                this.setState({user:JSON.parse(user),initialRouteName:'front'})
-                console.log(this.state.initialRouteName)
-                return
-            }
-            await AsyncStorage.setItem("Drinks",JSON.stringify([500,1000,1500,2000]))
-            this.setState({initialRouteName:'Welcome'})
-            this.render = ()=>{
-                return(
-                    <DayProvider>
-                        <NavigationContainer>
-                            <Stack.Navigator initialRouteName={this.state.initialRouteName}>
-                                <Stack.Screen name="Welcome" component={Welcome} options={{headerShown:false}} />
-                                <Stack.Screen name="Register" component={Register} options={{headerShown:false}}/>
-                                <Stack.Screen name="Edit" component={Edit} options={{headerShown:false}} />
-                                <Stack.Screen initialParams={{data:this.state.atualDay}} name="Historic" component={Historic} options={{headerShown:false, animation:'default', }} />
-                            </Stack.Navigator>
-                        </NavigationContainer>
-                    </DayProvider>
-                )
-            }
-            
-
-            console.log("Valores salvos no banco de dados")
         }catch(e){
             console.log(e)
         }
+        console.log("-------------------------")
+        console.log(this.state)
+        console.log("-------------------------")
+
     }
-    
+    add = async (user)=>{
+        console.log(this.state.initialRouteName === 'initial')
+        const state = this.state
+        state.initialRouteName = "initial"
+        await AsyncStorage.setItem("state",JSON.stringify(state))
+    }
     render = ()=>{
-        if(this.state.user != null){
-            
-            return(
-                <DayProvider>
-                        <NavigationContainer>
-                            <Stack.Navigator initialRouteName={this.state.initialRouteName}>
-                                <Stack.Screen initialParams={this.updateDay} name="front"  component={Initial} options={{headerShown:false, animation:'default'}}/>
-                                <Stack.Screen name="Edit" component={Edit} options={{headerShown:false}} />
-                                <Stack.Screen initialParams={{data:this.state.atualDay}} name="Historic" component={Historic} options={{headerShown:false, animation:'default', }} />
-                            </Stack.Navigator>
-                        </NavigationContainer>
-                </DayProvider>
-                )
-        }else{
-            console.log("Dentro do if")
-            return(
-                <DayProvider>
-                    <NavigationContainer>
-                        <Stack.Navigator>
-                            <Stack.Screen name="Welcome" component={Welcome} options={{headerShown:false}} />
-                            <Stack.Screen name="Register" component={Register} options={{headerShown:false}}/>
-                        </Stack.Navigator>
-                    </NavigationContainer>
-                </DayProvider>   
-            )
-            
-        }
+        return(
+            <NavigationContainer>
+                <Stack.Navigator>
+                    {this.state.initialRouteName === 'Welcome'?
+                    <Stack.Screen {...this.props} name="Welcome" component={Welcome} />
+                    :
+                    false
+                    }
+                    <Stack.Screen initialParams={{
+
+                    }} name="Initial" component={Initial} />
+                    <Stack.Screen initialParams={{
+                        add: this.add
+                    }} name="Register" component={Register} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        )
     }
 }

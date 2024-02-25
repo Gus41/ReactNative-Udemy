@@ -3,68 +3,13 @@ import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableO
 import { getGoal, getUserData } from "../functions";
 import Drinks from "../components/Drinks";
 import { getDrinkValues } from "../functions";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import DayContext from "../../context/DayContext";
-
-async function getUser (){
-  const u = await AsyncStorage.getItem("User")
-  return u
-}
-export default props=>{
-  const [showDrinks,setShowDrinks] = useState(false)
-  const [atualDay,setAtualDay] = useState(0)
-  const { dispatch } = useContext(DayContext)
 
 
 
-  const toggle = async ()=>{
-    setShowDrinks(!showDrinks)
-  }
-
-  const goEdit = ()=>{
-    toggle()
-    props.navigation.navigate("Edit")
-  }
-  const goInitial = ()=>{
-    props.navigation.navigate("Initial")
-  }
-  const getGoal = ()=>{
-    return 200
-  }
-  async function Add(value){
-    try{
-      let atualDay = await getAtualDay()
-      atualDay.historic.push(parseFloat(value))
-      atualDay.amount += parseFloat(value)
-      console.log(atualDay)
-      await AsyncStorage.setItem("AtualDay",JSON.stringify(atualDay))
-      dispatch({
-        type:'reload'
-      })
-      toggle()
-    }catch(e){
-      console.log(e)
-    }
-  }
-  async function getAtualDay(){
-    const data = await AsyncStorage.getItem("AtualDay")
-    return JSON.parse(data)
-  }
-  const updateDay = async ()=>{
-    try{
-      let AtualDB = await AsyncStorage.getItem("AtualDay")
-      if(AtualDB==null){
-        return
-      }
-      AtualDB = JSON.parse(AtualDB)
-      setAtualDay(AtualDB.amount)
-    }catch(e){
-      console.log(e)
-    }
-  }
-  updateDay()
-  return(
-        <View style={styles.container}>
+export default class Initial extends Component{
+  render = ()=>{
+    return(
+      <View style={styles.container}>
           <TouchableOpacity 
             onPress={()=>props.navigation.navigate('Historic')}
           >
@@ -97,66 +42,68 @@ export default props=>{
            <Text style={styles.textBottom}>Seja sua melhor versão</Text>
         </View>
     )
+  }
+  
 }
 const styles = StyleSheet.create({
-    historic:{
-      marginTop:10,
-      width:30,
-      height:30
-    },
-    container: {
-      flex: 1,
-      backgroundColor: '#000018',
-      alignItems: 'center',
-      flexDirection:'column',
-    },
-    text:{
+  historic:{
+    marginTop:10,
+    width:30,
+    height:30
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#000018',
+    alignItems: 'center',
+    flexDirection:'column',
+  },
+  text:{
+    color:"#30D3F6",
+    textAlign:'center',
+    fontSize:15
+  },
+  textTittle:{
       color:"#30D3F6",
-      textAlign:'center',
-      fontSize:15
-    },
-    textTittle:{
-        color:"#30D3F6",
-        margin:10,
-        fontWeight:'500',
-        marginTop:50,
-        fontSize:20
-    },
-    logoContainer:{
-        alignItems:'center',
-        marginTop:100,
-        position:'relative'
-    },
-    logo:{
-      width:60,
-      height:70,
-      marginBottom:10,
+      margin:10,
+      fontWeight:'500',
+      marginTop:50,
+      fontSize:20
+  },
+  logoContainer:{
+      alignItems:'center',
+      marginTop:100,
+      position:'relative'
+  },
+  logo:{
+    width:60,
+    height:70,
+    marginBottom:10,
+    position:"relative"
+  },
+  centerContain:{
+      flex:1,
+      justifyContent:'center',
+      alignItems:'center',
+      padding:5,
+      marginBottom:100,
       position:"relative"
-    },
-    centerContain:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-        padding:5,
-        marginBottom:100,
-        position:"relative"
-    },
-    button:{
-        borderWidth:1,
-        borderColor:'#30D3F6',
-        width:60,
-        height:60,
-        borderRadius:30,
-        justifyContent:"center",
-        alignItems:'center',
-        position:"absolute",
-        bottom:70
-    },
-    textBottom:{
+  },
+  button:{
+      borderWidth:1,
+      borderColor:'#30D3F6',
+      width:60,
+      height:60,
+      borderRadius:30,
+      justifyContent:"center",
+      alignItems:'center',
       position:"absolute",
-      bottom:20,
-      color:"#30D3F6",
-      textAlign:'center',
+      bottom:70
+  },
+  textBottom:{
+    position:"absolute",
+    bottom:20,
+    color:"#30D3F6",
+    textAlign:'center',
 
-    }
-  });
+  }
+});

@@ -12,7 +12,7 @@ export default props=>{
             <View style={styles.centerContain}>
                 <Text style={styles.text}>Vamos precisar de algumas informações suas para continuar nossa experiência</Text>
                 <TouchableOpacity
-                onPress={()=> props.navigation.navigate("Register")}>
+                onPress={()=> props.navigation.navigate("register")}>
                     <View  style={styles.button}>
                         <Text style={styles.text}>Continuar</Text>
                     </View>
