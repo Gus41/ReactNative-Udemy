@@ -31,17 +31,19 @@ export default class App extends Component{
   }
 
 
-  componentDidMount = async ()=>{
-    const state_str = await AsyncStorage.getItem("state")
-    console.log(state_str)
-    const state_obj = JSON.parse(state_str)
-    if(state_obj){
-      console.log(state_obj)
-      this.setState(state_obj)
-    }else{
-      this.setState(initialState)
+  componentDidMount = async () => {
+    try {
+      const state_str = await AsyncStorage.getItem("state");
+      const state_obj = JSON.parse(state_str);
+  
+      if (state_obj) {
+        this.setState({ ...state_obj });
+      } else {
+        this.setState({ ...initialState });
+      }
+    } catch (error) {
+      console.error("Error loading state from AsyncStorage:", error);
     }
-    console.log(this.state)
   }
   hasUser = ()=>{
     return this.state.user != null
@@ -55,37 +57,62 @@ export default class App extends Component{
     this.render()
   }
 
-  addValue = async (value)=>{
-    const state = this.state
-    state.atualDay.day = moment().locale('pt-br').format("DD/MM")
-    state.atualDay.historic.push(parseFloat(value))
-    state.atualDay.amount += parseFloat(value)
-    this.setState({state})
-    await AsyncStorage.setItem("state",JSON.stringify(state))
-    this.forceUpdate()
-  }
-  save = async(id,value)=>{
-    const state = this.state
-    state.driks[id] = parseFloat(value)
-    this.setState({state})
-    await AsyncStorage.setItem("state",JSON.stringify(state))
-    this.render()
-  }
-
-  deleteHistoricValue = async (id)=>{
-    const state = this.state
-    let newHistoric = []
-    for(let i = 0 ; i < this.state.atualDay.historic.length ; i++){
-      if(i!=id){
-        newHistoric.push(this.state.atualDay.historic[i])
-      }else{
-        state.atualDay.amount -= this.state.atualDay.historic[i]
-      }
+  addValue = async (value) => {
+    try {
+      this.setState((prevState) => {
+        const newHistoric = [...prevState.atualDay.historic, parseFloat(value)];
+        const newAmount = prevState.atualDay.amount + parseFloat(value);
+  
+        return {
+          atualDay: {
+            ...prevState.atualDay,
+            day: moment().locale('pt-br').format("DD/MM"),
+            historic: newHistoric,
+            amount: newAmount
+          }
+        };
+      }, () => {
+        AsyncStorage.setItem("state", JSON.stringify(this.state));
+      });
+    } catch (error) {
+      console.error("Error adding value:", error);
     }
-    state.atualDay.historic = newHistoric
-    this.setState({state})
-    await AsyncStorage.setItem("state",JSON.stringify(state))
+  }
+  save = async (id, value) => {
+    try {
+      this.setState((prevState) => {
+        const newDrinks = [...prevState.driks];
+        newDrinks[id] = parseFloat(value);
+  
+        return { driks: newDrinks };
+      }, () => {
+        AsyncStorage.setItem("state", JSON.stringify(this.state));
+      });
+    } catch (error) {
+      console.error("Error saving value:", error);
+    }
+  }
+  
 
+  deleteHistoricValue = async (id) => {
+    try {
+      this.setState((prevState) => {
+        const newHistoric = prevState.atualDay.historic.filter((_, index) => index !== id);
+        const newAmount = prevState.atualDay.amount - prevState.atualDay.historic[id];
+  
+        return {
+          atualDay: {
+            ...prevState.atualDay,
+            historic: newHistoric,
+            amount: newAmount
+          }
+        };
+      }, () => {
+        AsyncStorage.setItem("state", JSON.stringify(this.state));
+      });
+    } catch (error) {
+      console.error("Error deleting historic value:", error);
+    }
   }
   render = ()=>{
     if(this.hasUser()){
