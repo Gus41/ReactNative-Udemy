@@ -1,12 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
+import { NativeBaseProvider } from 'native-base';
 import { StyleSheet, Text, View } from 'react-native';
+import DashBoard from './src/screens/DashBoard'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NativeBaseProvider>
+      <View style={styles.container}>
+        
+        <StatusBar style="auto" />
+        <DashBoard />
+      </View>
+    </NativeBaseProvider>
   );
 }
 
