@@ -8,7 +8,6 @@ import { useToast } from "native-base";
 export default(props:any)=>{
     const [bottleSize,setBottleSize] = useState(500)
     const [water,setWater] = useState(0)
-    const [goal,setGoal] = useState(2000)
     const toast = useToast()
 
 
@@ -34,7 +33,7 @@ export default(props:any)=>{
         setBottleSize(value)
     }
     return(
-       <VStack my={30} p={4} alignItems={'center'} flex={1} width={'100%'} justifyContent={'space-between'}>
+       <VStack p={4} alignItems={'center'} flex={1} width={'100%'} justifyContent={'space-between'}>
             <Text fontSize={'sm'}>
                 copo de {bottleSize} ml
             </Text>
