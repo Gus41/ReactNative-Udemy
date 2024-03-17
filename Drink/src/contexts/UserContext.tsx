@@ -1,6 +1,7 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import IUser from "../interfaces/UserInterface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { usePersistState } from "../hooks/usePersistState";
 
 
 interface IUserContext{
@@ -14,37 +15,20 @@ const USER = {
 }
 export const UserContext = createContext<IUserContext>({
     goal: GOAL,
-    setGoal: ()=>{},
-    user: USER
+    user: USER,
+    setGoal:()=>{}
 })
 
 interface UserProviderProps {
     children: React.ReactNode
 }
 export const UserProvider: React.FC<UserProviderProps> = ({children})=>{
-    const [goal,setGoal] = useState<number>(GOAL)
+    const [goal,setGoal] = usePersistState(GOAL)
     const [user] = useState<IUser>(USER)
     
-    const storeData = async (value:number)=>{
-        try{
-            const jsonValue = JSON.stringify(value)
-            await AsyncStorage.setItem('state',jsonValue)
-        }catch(e){
-            console.log(e)
-        }
-    }
-
-    const getData: ()=>Promise<Number> = async ()=>{
-        try{
-            const jsonValue = await AsyncStorage.getItem('state')
-            return jsonValue != null ? JSON.parse(jsonValue) : null
-        }catch(e){
-            console.log(e)
-        }
-    }
-
+   
     return(
-        <UserContext.Provider value={{goal,setGoal,user}}>
+        <UserContext.Provider value={{goal,user,setGoal}}>
             {children}
         </UserContext.Provider>
     )
