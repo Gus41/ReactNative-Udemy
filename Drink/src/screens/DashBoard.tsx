@@ -1,7 +1,8 @@
 import { View,Text, VStack, HStack, Button, Box, SmallCloseIcon } from "native-base";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { useToast } from "native-base";
+import { UserContext } from "../contexts/UserContext";
 
 
 
@@ -10,7 +11,7 @@ export default(props:any)=>{
     const [water,setWater] = useState(0)
     const toast = useToast()
 
-
+    const {goal} = useContext(UserContext)
 
     const handleWater = ()=>{
         setWater(water+bottleSize)
