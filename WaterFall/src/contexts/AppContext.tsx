@@ -3,6 +3,8 @@ import { usePersistState } from "../hooks/usePersistState";
 import IUser from "../interfaces/IUser";
 import IHistoric from "../interfaces/IHistoric";
 import IDay from "../interfaces/IDay";
+import IDrinks from "../interfaces/IDrinks";
+import IDrink from "../interfaces/Drinks";
 
 interface IAppContext{
     user:{},
@@ -11,6 +13,8 @@ interface IAppContext{
     setAtualDay : (value: IDay) => Promise<void>,
     historic: IHistoric,
     setHistoric: (value:IHistoric) => Promise<void>
+    drinks:IDrinks,
+    setDrinks : (value:IDrinks) => Promise<void>
 }
 //MOCKS
 const USER : IUser = {
@@ -27,6 +31,9 @@ const ATUAL_DAY : IDay = {
 const HISTORIC :IHistoric = {
     data : []
 }
+const DRINKS : IDrinks = {
+    data: [{id:0,value:500},{id:1,value:1000},{id:2,value:1500},{id:3,value:2000},]
+}
 //-------------------------------------------------------
 export const AppContext = createContext<IAppContext>({
     user : USER,
@@ -34,7 +41,9 @@ export const AppContext = createContext<IAppContext>({
     atualDay: ATUAL_DAY,
     setAtualDay: ()=>Promise.resolve(),
     historic : HISTORIC,
-    setHistoric: ()=> Promise.resolve()
+    setHistoric: ()=> Promise.resolve(),
+    drinks:DRINKS,
+    setDrinks : ()=>Promise.resolve()
 })
 interface AppProviderProps {
     children: React.ReactNode
@@ -43,9 +52,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({children})=>{
     const [user,setUser] = usePersistState<IUser>(USER,'user')
     const [atualDay,setAtualDay] = usePersistState<IDay>(ATUAL_DAY,'atualDay')
     const [historic,setHistoric] = usePersistState<IHistoric>(HISTORIC,'historic')
+    const [drinks,setDrinks] = usePersistState<IDrinks>(DRINKS,'drinks')
 
     return(
-        <AppContext.Provider value={{user,setUser,atualDay,setAtualDay,setHistoric,historic}}>
+        <AppContext.Provider value={{user,setUser,atualDay,setAtualDay,setHistoric,historic,drinks,setDrinks}}>
             {children}
         </AppContext.Provider>
     )

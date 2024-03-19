@@ -20,11 +20,11 @@ export default (props)=>{
                 <Text style={styles.text}>{props.drinkValue}</Text>
                 <Image style={styles.image} source={require(img)} />
                 <TextInput  style={styles.input} keyboardType="numeric" 
-                    onChangeText={(text)=>setNewValue(text)}
+                    onChangeText={(text)=>setNewValue(Number(text))}
                 />
                 <TouchableOpacity
                     onPress={()=>{
-                        if(newValue.length > 1){
+                        if(newValue > 1){
                             props.save(props.id,newValue)
                             props.toggle()
                         }

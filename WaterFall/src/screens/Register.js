@@ -1,11 +1,10 @@
 import { Image, StyleSheet, Text, TouchableWithoutFeedback, View, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AppContext } from '../contexts/AppContext';
 
 export default (props)=>{
-    console.log("---PROPIEDADES PASSADAS NO REGISTER---")
-    console.log(props)
-    
+    const {user,setUser} = useContext(AppContext)
     const [name,setName] = useState('')
     const [height,setHeight] = useState(null)
     const [weight,setWeight] = useState(null)
@@ -71,8 +70,9 @@ export default (props)=>{
                 </View>
                 <TouchableWithoutFeedback 
                 onPress={()=>{
-                    props.route.params.add({name,height,weight,sex:boxes.one?'M':boxes.two?'F':'N/I'})
-                    
+                    setUser({name,height,weight,sex:boxes.one?'M':boxes.two?'F':'N/I',goal:2000})
+                    console.log(user)
+                    props.navigation.navigate("Initial")
                     }}>
                     <View style={styles.button}>
                         <Text style={styles.text}>Continuar</Text>

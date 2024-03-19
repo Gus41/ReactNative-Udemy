@@ -9,13 +9,11 @@ function goInitial(){
 }
 
 
-export default ()=>{
-  const {user,atualDay,setAtualDay} = useContext(AppContext)  
+export default (props)=>{
+  const {user,atualDay,setAtualDay,drinks} = useContext(AppContext)  
   const [showDrinks,setShowDrinks] = useState(false)
-  const [atualAmount,setAtualAmount] = useState(atualDay.amount)
-
   const goEdit = ()=>{
-    console.log("Implementar")
+    props.navigation.navigate("Drinks")
   }
   const getGoal = ()=>{
     return 2000
@@ -29,9 +27,9 @@ export default ()=>{
       date : atualDay.date
     }
     alert(atualDayCopy.amount)
-    setAtualAmount(atualDayCopy.amount)
     setAtualDay(atualDayCopy)
   }
+  console.log(atualDay)
   return(
       <View style={styles.container}>
            <View style={styles.logoContainer}>
@@ -39,9 +37,9 @@ export default ()=>{
               <Text style={styles.text}>Meta: {`${user.goal}`} ml</Text>
            </View>
            <View>
-            <Text style={styles.text}>{atualAmount}</Text>
+            <Text style={styles.text}>{atualDay.amount}</Text>
            </View>
-           <Drinks Add={Add} goInitial={goInitial} goEdit={goEdit} drinkValues={[500,1000,1500,2000]} toggle={toggle} show={showDrinks} />
+           <Drinks Add={Add} goInitial={goInitial} goEdit={goEdit} drinkValues={drinks} toggle={toggle} show={showDrinks} />
            <TouchableOpacity style={styles.button}
            onPress={toggle}>
               <Text style={{color:"white",textAlign:'center'}}>+</Text>

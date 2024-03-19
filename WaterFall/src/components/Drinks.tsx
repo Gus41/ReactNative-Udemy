@@ -1,10 +1,15 @@
 import React from "react";
 import { Image, Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { useState } from "react";
+import IDrink from "../interfaces/Drinks";
+import IDrinks from "../interfaces/IDrinks";
 
-export default (props)=>{
-    const [drinks,setDrinks] = useState(props.drinkValues)
-
+export default (props:any)=>{
+    const Dr : IDrinks = props.drinkValues
+    let drinks = []
+    for(let i = 0 ; i < Dr.data.length ; i++ ){
+        drinks.push(Dr.data[i].value)
+    }
     return(
         <Modal animationType="slide" transparent={true} visible={props.show} style={styles.modal}>
             <TouchableWithoutFeedback
@@ -24,7 +29,7 @@ export default (props)=>{
                 </View>
                 <View style={styles.drinks}>
                     <TouchableOpacity style={styles.drink}
-                        onPress={()=>props.Add(drinks[0])}
+                        onPress={()=>props.Add(drinks[0].value)}
                     >
                         <Image source={require('../../assets/drinkOne.png')} />
                         <Text style={styles.text}>{drinks[0]} ml</Text>
