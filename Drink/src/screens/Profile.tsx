@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { UserContext } from "../contexts/UserContext";
 
 export default (props:any) =>{
-    const { goal, user, getData, storeData} = useContext(UserContext)
+    const { goal, user, setGoal, setUser} = useContext(UserContext)
     const [local,setLocal] = useState(999)
 
 
@@ -14,12 +14,15 @@ export default (props:any) =>{
             <Avatar bg="blue" alignSelf={'center'} size={'xl'}>
                 AJ
             </Avatar>
+            <Input defaultValue={user.name} onChangeText={(text:string)=>{
+                setUser({name:(text)})
+            }}/>
             <Text fontSize={'xl'} textAlign={'center'}>{`${user.name}`}</Text>
             <Box borderTopColor={'black'} borderTopWidth={0.2} pt={10} mt={5}>
                 <Input placeholder="Alterar meta de agua" mx={'20'} onChangeText={(text)=>setLocal(Number(text))} />
                 <Text textAlign={'center'}>Meta Atual: {`${goal}`}ml</Text>
             </Box>
-            <Button onPress={()=>storeData(local)} mx={20}>
+            <Button onPress={()=>setGoal(local)} mx={20}>
                 Salvar Meta
             </Button>
         </SafeAreaView>

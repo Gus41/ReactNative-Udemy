@@ -21,7 +21,6 @@ export function usePersistState<T>(defaultValue:T,key:string): [T,(value: T) => 
     async function getData(): Promise<T>{
         try{
             const jsonValue = await AsyncStorage.getItem(key)
-            console.log(jsonValue)
             return jsonValue != null ? JSON.parse(jsonValue) : defaultValue
         }catch(e){
             console.log("error reading data: "+ e)

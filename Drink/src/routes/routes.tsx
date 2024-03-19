@@ -3,7 +3,6 @@ import DashBoard from '../screens/DashBoard';
 import { View,Text, Icon, PlayIcon, FavouriteIcon, ArrowForwardIcon, QuestionIcon } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import Profile from '../screens/Profile';
-import { useState } from 'react';
 
 
 type ITabRoutes = {
@@ -24,8 +23,6 @@ const Screen = ()=>{
 interface IRoute{}
 
 export const Routes: React.FunctionComponent<IRoute> =()=>{
-
-    const [goal,setGoal] = useState<Number>(1500)
 
   return (
     <NavigationContainer>
