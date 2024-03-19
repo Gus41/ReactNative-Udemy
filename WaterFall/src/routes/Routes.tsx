@@ -7,6 +7,7 @@ import Welcome from "../screens/Welcome";
 import { AppContext } from "../contexts/AppContext";
 import Register from "../screens/Register";
 import Edit from "../screens/Edit";
+import Historic from "../screens/Historic";
 
 const Drawer = createDrawerNavigator()
 
@@ -23,12 +24,12 @@ export default ()=>{
     let i = user.name == 'default'? 'Welcome' : 'Initial'
     return(
         <NavigationContainer>
-            <Drawer.Navigator initialRouteName={i}>
-                {user.name == 'default' ? <Drawer.Screen name="Welcome" component={Welcome} /> : false}
-                <Drawer.Screen name="Initial" component={Initial} />
-                <Drawer.Screen name="Profile" component={Register} />
-                <Drawer.Screen name="Drinks" component={Edit} options={{title:'Minhas Bebidas'}} />
-                <Drawer.Screen name="Assets" component={Screen} />
+            <Drawer.Navigator  initialRouteName={i}>
+                {user.name == 'default' ? <Drawer.Screen options={{headerShown:false}} name="Welcome" component={Welcome} /> : false}
+                <Drawer.Screen options={{headerShown:false}} name="Initial" component={Initial} />
+                <Drawer.Screen options={{headerShown:false}} name="Profile" component={Register} />
+                <Drawer.Screen name="Drinks" component={Edit} options={{title:'Minhas Bebidas',headerShown:false}} />
+                <Drawer.Screen options={{headerShown:false}} name="Historic" component={Historic} />
             </Drawer.Navigator>
         </NavigationContainer>
     )

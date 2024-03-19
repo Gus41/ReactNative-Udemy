@@ -1,7 +1,6 @@
 import React, { Component, useContext, useState, useSyncExternalStore } from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image, FlatList } from "react-native";
 import Drop from "../components/Drop";
-import 'moment/locale/pt-br'
 
 export default class Historic extends Component{
     del = (id)=>{

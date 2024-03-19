@@ -29,7 +29,7 @@ export default (props:any)=>{
                 </View>
                 <View style={styles.drinks}>
                     <TouchableOpacity style={styles.drink}
-                        onPress={()=>props.Add(drinks[0].value)}
+                        onPress={()=>props.Add(drinks[0])}
                     >
                         <Image source={require('../../assets/drinkOne.png')} />
                         <Text style={styles.text}>{drinks[0]} ml</Text>

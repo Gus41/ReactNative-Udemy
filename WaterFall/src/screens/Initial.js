@@ -12,11 +12,9 @@ function goInitial(){
 export default (props)=>{
   const {user,atualDay,setAtualDay,drinks} = useContext(AppContext)  
   const [showDrinks,setShowDrinks] = useState(false)
+
   const goEdit = ()=>{
     props.navigation.navigate("Drinks")
-  }
-  const getGoal = ()=>{
-    return 2000
   }
   const toggle = ()=>{
     setShowDrinks(!showDrinks)
@@ -26,7 +24,7 @@ export default (props)=>{
       amount: atualDay.amount + value,
       date : atualDay.date
     }
-    alert(atualDayCopy.amount)
+    alert(value)
     setAtualDay(atualDayCopy)
   }
   console.log(atualDay)
