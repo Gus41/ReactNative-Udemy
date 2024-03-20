@@ -2,7 +2,6 @@ import React, { useContext, useState , useEffect} from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image, Modal } from "react-native";
 import Drinks from "../components/Drinks";
 import { AppContext } from "../contexts/AppContext";
-import Historic from "./Historic";
 
 
 function goInitial(){
@@ -14,7 +13,6 @@ export default (props)=>{
   const {user,atualDay,setAtualDay,drinks} = useContext(AppContext)  
   const [showDrinks,setShowDrinks] = useState(false)
   const [showHistoric,setShowHistoric] = useState(false)
-
   const goEdit = ()=>{
     props.navigation.navigate("Drinks")
   }
@@ -35,6 +33,9 @@ export default (props)=>{
     setShowHistoric(!showHistoric)
   }
   deleteLast = ()=>{
+    if(atualDay.amount <= 0){
+      return
+    }
     const a = atualDay
     a.amount -= a.historic[a.historic.length-1].amount
     a.historic.pop()
