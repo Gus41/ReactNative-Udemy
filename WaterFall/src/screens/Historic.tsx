@@ -4,37 +4,12 @@ import Drop from "../components/Drop";
 
 export default class Historic extends Component{
     del = (id)=>{
-        let newData = []
-        for(let i = 0 ; i < this.state.data.length ; i++){
-            if(this.state.data[i].id != id){
-                newData.push(this.state.data[i])
-            }
-        }
-        this.setState({data:newData})
-        this.props.route.params.delete(id)
-    }
-    treatData = (data_arr)=>{
-        let data = []
-        for(let i = 0; i< data_arr.length ; i ++){
-            data.push({
-                id:i,
-                amount:data_arr[i]
-            })
-        }
-        return data
-    }
-    state = {
-        data:[...this.treatData(this.props.route.params.historic)]
-    }
-    componentDidMount = ()=>{
-        this.setState({
-            data:[...this.treatData(this.props.route.params.historic)]
-        })
+        console.log("Deletar: " + id)
     }
     render = ()=>{
         console.log("HISTORIC")
-        console.log(this.props.route.params)
         console.log("HISTORIC")
+        let data = []
         return(
             <View style={styles.container}>
                <View style={styles.logoContainer}>
@@ -42,7 +17,7 @@ export default class Historic extends Component{
                     <Text style={styles.textTittle}>Histórico do dia</Text>
                     <View style={styles.drinkContainer}>
                         <FlatList
-                        data={this.state.data}
+                        data={data}
                         renderItem={(item)=>{
                             return(
                                 <Drop  amount={item.item.amount} id={item.item.id}  delete={this.del}/>

@@ -26,7 +26,7 @@ export default ()=>{
         <NavigationContainer>
             <Drawer.Navigator  initialRouteName={i}>
                 {user.name == 'default' ? <Drawer.Screen options={{headerShown:false}} name="Welcome" component={Welcome} /> : false}
-                <Drawer.Screen options={{headerShown:false}} name="Initial" component={Initial} />
+                <Drawer.Screen options={{headerShown:true}} name="Initial" component={Initial} />
                 <Drawer.Screen options={{headerShown:false}} name="Profile" component={Register} />
                 <Drawer.Screen name="Drinks" component={Edit} options={{title:'Minhas Bebidas',headerShown:false}} />
                 <Drawer.Screen options={{headerShown:false}} name="Historic" component={Historic} />
