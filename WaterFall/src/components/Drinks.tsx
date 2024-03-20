@@ -23,8 +23,13 @@ export default (props:any)=>{
                             <Image source={require('../../assets/gear.png')} />
                         </View>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>props.deleteLast()}>
+                        <Text style={styles.text}>Desfazer</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity onPress={()=>props.toggle()}>
-                        <Text style={styles.text}>X</Text>
+                    <View>
+                            <Image source={require('../../assets/gear.png')} />
+                        </View>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.drinks}>
@@ -77,7 +82,8 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         alignItems:"center",
         flexDirection:'row',
-        padding:10
+        padding:10,
+        marginBottom:20
     },
     modal:{
         justifyContent:"center",

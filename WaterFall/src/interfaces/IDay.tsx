@@ -1,4 +1,5 @@
 export default interface IDay{
     amount:number,
-    date:Date
+    date:Date,
+    id:number
 }

@@ -1,34 +1,30 @@
-import React, { Component, useContext, useState, useSyncExternalStore } from "react";
+import React, { Component, useContext, useEffect, useState, useSyncExternalStore } from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image, FlatList } from "react-native";
 import Drop from "../components/Drop";
+import { AppContext } from "../contexts/AppContext";
 
-export default class Historic extends Component{
-    del = (id)=>{
-        console.log("Deletar: " + id)
-    }
-    render = ()=>{
-        console.log("HISTORIC")
-        console.log("HISTORIC")
-        let data = []
-        return(
-            <View style={styles.container}>
-               <View style={styles.logoContainer}>
-                    <Image style={styles.logo} source={require('../../assets/drop.png')}/> 
-                    <Text style={styles.textTittle}>Histórico do dia</Text>
-                    <View style={styles.drinkContainer}>
-                        <FlatList
-                        data={data}
-                        renderItem={(item)=>{
-                            return(
-                                <Drop  amount={item.item.amount} id={item.item.id}  delete={this.del}/>
-                            )
-                        }}
-                        />
-                    </View>
+export default (props:any)=>{
+
+    return(
+        
+        <View style={styles.container}>
+            
+           <View style={styles.logoContainer}>
+                <Image style={styles.logo} source={require('../../assets/drop.png')}/> 
+                <Text style={styles.textTittle}>Histórico do dia</Text>
+                <View style={styles.drinkContainer}>
+                    <FlatList
+                    data={props.data}
+                    renderItem={(item)=>{
+                        return(
+                            <Drop  amount={item.item.amount} id={item.item.id}  delete={props.del}/>
+                        )
+                    }}
+                    />
                 </View>
             </View>
-        )
-    }
+        </View>
+    )
 }
 const styles = StyleSheet.create({
     drinkContainer:{

@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export function usePersistState<T>(defaultValue:T,key:string): [T,(value: T) => Promise<void>]{
 

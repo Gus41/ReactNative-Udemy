@@ -5,12 +5,13 @@ import IHistoric from "../interfaces/IHistoric";
 import IDay from "../interfaces/IDay";
 import IDrinks from "../interfaces/IDrinks";
 import IDrink from "../interfaces/Drinks";
+import IAtualDay from "../interfaces/IAtualDay";
 
 interface IAppContext{
     user:{},
     setUser:(value: IUser) => Promise<void>,
-    atualDay: IDay,
-    setAtualDay : (value: IDay) => Promise<void>,
+    atualDay: IAtualDay,
+    setAtualDay : (value: IAtualDay) => Promise<void>,
     historic: IHistoric,
     setHistoric: (value:IHistoric) => Promise<void>
     drinks:IDrinks,
@@ -24,9 +25,10 @@ const USER : IUser = {
     sex:'M', // M || F || undefined
     goal:2000 
 }
-const ATUAL_DAY : IDay = {
-    amount:110,
-    date: new Date()
+const ATUAL_DAY : IAtualDay = {
+    amount:0,
+    date: new Date(),
+    historic:[]
 }
 const HISTORIC :IHistoric = {
     data : []
@@ -50,7 +52,7 @@ interface AppProviderProps {
 }
 export const AppProvider: React.FC<AppProviderProps> = ({children})=>{
     const [user,setUser] = usePersistState<IUser>(USER,'user')
-    const [atualDay,setAtualDay] = usePersistState<IDay>(ATUAL_DAY,'atualDay')
+    const [atualDay,setAtualDay] = usePersistState<IAtualDay>(ATUAL_DAY,'atualDay')
     const [historic,setHistoric] = usePersistState<IHistoric>(HISTORIC,'historic')
     const [drinks,setDrinks] = usePersistState<IDrinks>(DRINKS,'drinks')
 

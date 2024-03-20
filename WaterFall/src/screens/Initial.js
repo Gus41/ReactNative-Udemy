@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
-import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image } from "react-native";
+import React, { useContext, useState , useEffect} from "react";
+import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image, Modal } from "react-native";
 import Drinks from "../components/Drinks";
 import { AppContext } from "../contexts/AppContext";
+import Historic from "./Historic";
 
 
 function goInitial(){
@@ -12,6 +13,7 @@ function goInitial(){
 export default (props)=>{
   const {user,atualDay,setAtualDay,drinks} = useContext(AppContext)  
   const [showDrinks,setShowDrinks] = useState(false)
+  const [showHistoric,setShowHistoric] = useState(false)
 
   const goEdit = ()=>{
     props.navigation.navigate("Drinks")
@@ -20,16 +22,28 @@ export default (props)=>{
     setShowDrinks(!showDrinks)
   }
   const Add = (value)=>{
+    let historic = atualDay.historic
+    historic.push({amount:value,id:historic.length})
     const atualDayCopy = {
       amount: atualDay.amount + value,
-      date : atualDay.date
+      date : atualDay.date,
+      historic : historic
     }
-    alert(value)
     setAtualDay(atualDayCopy)
   }
-  console.log(atualDay)
+  toggleHistoric = ()=>{
+    setShowHistoric(!showHistoric)
+  }
+  deleteLast = ()=>{
+    const a = atualDay
+    a.amount -= a.historic[a.historic.length-1].amount
+    a.historic.pop()
+    console.log(a)
+    setAtualDay(a)
+  }
   return(
       <View style={styles.container}>
+          
            <View style={styles.logoContainer}>
               <Image style={styles.logo} source={require('../../assets/drop.png')}/> 
               <Text style={styles.text}>Meta: {`${user.goal}`} ml</Text>
@@ -37,7 +51,8 @@ export default (props)=>{
            <View>
             <Text style={styles.text}>{atualDay.amount}</Text>
            </View>
-           <Drinks Add={Add} goInitial={goInitial} goEdit={goEdit} drinkValues={drinks} toggle={toggle} show={showDrinks} />
+           
+           <Drinks deleteLast={deleteLast} Add={Add} goInitial={goInitial} goEdit={goEdit} drinkValues={drinks} toggle={toggle} show={showDrinks} />
            <TouchableOpacity style={styles.button}
            onPress={toggle}>
               <Text style={{color:"white",textAlign:'center'}}>+</Text>

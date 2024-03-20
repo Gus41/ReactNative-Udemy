@@ -8,7 +8,7 @@ export default function App() {
   return (
     <AppProvider>
       <Routes />
-      <StatusBar style='auto' />
+      <StatusBar style='dark' />
     </AppProvider>
   );
 }
