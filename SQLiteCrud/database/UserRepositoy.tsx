@@ -11,20 +11,24 @@ export default class UserRepository{
         this.up()
     }
     private async up(){
-        await executeTransaction(
+        const data = await executeTransaction(
             "CREATE TABLE IF NOT EXISTS users(id integer primary key, name text, age integer)"
         )
-        console.log("Tabela criada")
     }
     public async create(user:User){
+        console.log(user)
         await executeTransaction(
-            "insert into users(id, name, age) values (?,?,?)",
+            "INSERT INTO users(id, name, age) VALUES(?,?,?)",
             [user.id,user.name,user.age]
         )
     }
     public async all(){
         const data = await executeTransaction("SELECT * FROM users")
-        console.log(data)
+        console.log(data.rows)
         return data.rows._array
+    }
+    public static async delete(id:number){
+        const data = await executeTransaction("DELETE FROM users WHERE id=?",[id])
+        return data.rowsAffected
     }
 }
