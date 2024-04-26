@@ -7,7 +7,6 @@ import Welcome from "../screens/Welcome";
 import { AppContext } from "../contexts/AppContext";
 import Register from "../screens/Register";
 import Edit from "../screens/Edit";
-import Historic from "../screens/Historic";
 
 const Drawer = createDrawerNavigator()
 
