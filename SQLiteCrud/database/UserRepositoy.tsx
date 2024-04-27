@@ -16,15 +16,17 @@ export default class UserRepository{
         )
     }
     public async create(user:User){
-        console.log(user)
-        await executeTransaction(
+        //console.log(user)
+        const sqlReturn = await executeTransaction(
             "INSERT INTO users(id, name, age) VALUES(?,?,?)",
             [user.id,user.name,user.age]
         )
+
+        return sqlReturn
     }
     public async all(){
         const data = await executeTransaction("SELECT * FROM users")
-        console.log(data.rows)
+        //console.log(data.rows)
         return data.rows._array
     }
     public static async delete(id:number){

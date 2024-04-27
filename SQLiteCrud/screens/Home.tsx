@@ -12,8 +12,18 @@ export default class Home extends React.Component {
     }
 
     create = async ()=>{
-        const id = this.state.users.length + 1
-        const user:User = {...this.state.dataMocked, id:id}
+
+        const AllIds = new Set(this.state.users.map(u=>u.id))
+        let validId = 1
+        
+        while(AllIds.has(validId)){
+            validId++
+        }
+
+
+
+
+        const user:User = {...this.state.dataMocked, id:validId}
         const data = await userRepository.create(user)
         console.log(data)
         await this.all()
@@ -31,6 +41,9 @@ export default class Home extends React.Component {
         await this.all()
     }
 
+    async componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, snapshot?: any) {
+        await this.all()
+    }
     render(): React.ReactNode {
         return(
             <View style={styles.container}>

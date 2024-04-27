@@ -2,23 +2,24 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './screens/Home';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeDrawerNavigator } from '@react-navigation/native-stack';
 import Visualize from './screens/Visualize';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 
 
 
 export default function App() {
 
-  const Stack = createNativeStackNavigator()
+  const Drawer = createDrawerNavigator()
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name='home' component={Home} />
-        <Stack.Screen name='visualize' component={Visualize} />
+      <Drawer.Navigator>
+        <Drawer.Screen name='home' component={Home} />
+        <Drawer.Screen name='visualize' component={Visualize} />
 
-      </Stack.Navigator>
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
