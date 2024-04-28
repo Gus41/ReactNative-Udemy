@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "start-max": "node --max-old-space-size=8192 node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
     "@react-navigation/drawer": "^6.6.15",
