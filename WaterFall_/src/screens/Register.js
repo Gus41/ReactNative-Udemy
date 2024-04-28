@@ -1,19 +1,10 @@
 import { Image, StyleSheet, Text, TouchableWithoutFeedback, View, TextInput } from 'react-native';
-import { useState } from 'react';
-import UserRepository from '../../database/providers/UserProvider';
-import User from '../../database/providers/UserProvider'
-import { walkUpBindingElementsAndPatterns } from 'typescript';
-
-const userRepo = new UserRepository()
-const register = async (user)=>{
-    await userRepo.create(user)
-}
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useContext, useState } from 'react';
+import { AppContext } from '../contexts/AppContext';
 
 export default (props)=>{
-    console.log("---PROPIEDADES PASSADAS NO REGISTER---")
-    console.log(props)
-    
+    const {user,setUser} = useContext(AppContext)
     const [name,setName] = useState('')
     const [height,setHeight] = useState(null)
     const [weight,setWeight] = useState(null)
@@ -28,25 +19,7 @@ export default (props)=>{
             setBoxes({one:false,two:false,three:true})
         }
     }
-    const add = async (user)=>{
-        
-        console.log(user)
 
-        await userRepo.down()
-        if(!user.name){
-            alert("Dados Incompletos")
-            return
-        }
-        if(!user.weight){
-            alert("Dados Incompletos")
-            return
-        }
-        if(!user.height){
-            alert("Dados Incompletos")
-            return
-        }
-        
-    }
     return(
         <View style={styles.container}>
             <View style={styles.centerContain}>
@@ -97,8 +70,9 @@ export default (props)=>{
                 </View>
                 <TouchableWithoutFeedback 
                 onPress={()=>{
-                    add({name,height,weight,sex:boxes.one?'M':boxes.two?'F':'N/I'})
-                    
+                    setUser({name,height,weight,sex:boxes.one?'M':boxes.two?'F':'N/I',goal:2000})
+                    console.log(user)
+                    props.navigation.navigate("Initial")
                     }}>
                     <View style={styles.button}>
                         <Text style={styles.text}>Continuar</Text>

@@ -20,9 +20,6 @@ export default class Home extends React.Component {
             validId++
         }
 
-
-
-
         const user:User = {...this.state.dataMocked, id:validId}
         const data = await userRepository.create(user)
         console.log(data)

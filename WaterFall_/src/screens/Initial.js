@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
-import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image } from "react-native";
+import React, { useContext, useState , useEffect} from "react";
+import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image, Modal } from "react-native";
 import Drinks from "../components/Drinks";
-import { Component } from "react";
+import { AppContext } from "../contexts/AppContext";
 
 
 function goInitial(){
@@ -9,46 +9,59 @@ function goInitial(){
 }
 
 
-export default class Initial extends Component{
-  state = {
-    showDrinks:false
+export default (props)=>{
+  const {user,atualDay,setAtualDay,drinks} = useContext(AppContext)  
+  const [showDrinks,setShowDrinks] = useState(false)
+  const [showHistoric,setShowHistoric] = useState(false)
+  const goEdit = ()=>{
+    props.navigation.navigate("Drinks")
   }
-
-  goEdit = ()=>{
-    this.props.navigation.navigate("Edit")
+  const toggle = ()=>{
+    setShowDrinks(!showDrinks)
   }
-  getDrinkValues = ()=>{
-    return this.props.route.params.DrinksValues
+  const Add = (value)=>{
+    let historic = atualDay.historic
+    historic.push({amount:value,id:historic.length})
+    const atualDayCopy = {
+      amount: atualDay.amount + value,
+      date : atualDay.date,
+      historic : historic
+    }
+    setAtualDay(atualDayCopy)
   }
-  getGoal = ()=>{
-    return 2000
+  toggleHistoric = ()=>{
+    setShowHistoric(!showHistoric)
   }
-  toggle = ()=>{
-    const showDrinks = !this.state.showDrinks
-    this.setState({showDrinks})
+  deleteLast = ()=>{
+    if(atualDay.amount <= 0){
+      return
+    }
+    const a = atualDay
+    a.amount -= a.historic[a.historic.length-1].amount
+    a.historic.pop()
+    console.log(a)
+    setAtualDay(a)
   }
-  render = ()=>{
-    return(
+  return(
       <View style={styles.container}>
-
+          
            <View style={styles.logoContainer}>
               <Image style={styles.logo} source={require('../../assets/drop.png')}/> 
-              <Text style={styles.text}>Meta: {this.getGoal()} ml</Text>
+              <Text style={styles.text}>Meta: {`${user.goal}`} ml</Text>
            </View>
            <View>
-            <Text style={styles.text}>{this.props.route.params.amount}</Text>
+            <Text style={styles.text}>{atualDay.amount}</Text>
            </View>
-           <Drinks Add={this.props.route.params.AddValue} goInitial={goInitial} goEdit={this.goEdit} drinkValues={this.getDrinkValues()} toggle={this.toggle} show={this.state.showDrinks} />
+           
+           <Drinks deleteLast={deleteLast} Add={Add} goInitial={goInitial} goEdit={goEdit} drinkValues={drinks} toggle={toggle} show={showDrinks} />
            <TouchableOpacity style={styles.button}
-           onPress={this.toggle}>
+           onPress={toggle}>
               <Text style={{color:"white",textAlign:'center'}}>+</Text>
            </TouchableOpacity>
            <Text style={styles.textBottom}>Seja sua melhor versão</Text>
         </View>
     )
   }
-  
-}
 const styles = StyleSheet.create({
   historic:{
     marginTop:10,
