@@ -21,8 +21,9 @@ export default class Routes extends React.Component{
         user : false
     }
     async componentDidMount(){
-        const users = await userRepository.all()
-        if(users.length > 1){
+        const user = await userRepository.all()
+        console.log(user)
+        if(user){
             this.setState({user:true})
         }else{
             this.setState({user:false})
@@ -30,6 +31,7 @@ export default class Routes extends React.Component{
         
     }
     render(): React.ReactNode {
+        console.log(this.state.user)
         return(
             <NavigationContainer>
                 <Drawer.Navigator>

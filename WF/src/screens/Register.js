@@ -30,7 +30,6 @@ export default (props)=>{
         
         console.log(user)
 
-        await userRepo.down()
         if(!user.name){
             alert("Dados Incompletos")
             return
@@ -43,6 +42,8 @@ export default (props)=>{
             alert("Dados Incompletos")
             return
         }
+
+        await userRepo.create(user)
         
     }
     return(
