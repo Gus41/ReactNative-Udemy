@@ -1,8 +1,6 @@
-import { Image, StyleSheet, Text, TouchableWithoutFeedback, View, TextInput } from 'react-native';
+import {StyleSheet, Text, TouchableWithoutFeedback, View, TextInput } from 'react-native';
 import { useState } from 'react';
 import UserRepository from '../../database/providers/UserProvider';
-import User from '../../database/providers/UserProvider'
-import { walkUpBindingElementsAndPatterns } from 'typescript';
 
 const userRepo = new UserRepository()
 const register = async (user)=>{

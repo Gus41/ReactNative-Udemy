@@ -3,7 +3,6 @@ import { NavigationContainer } from "@react-navigation/native"
 import Register from "../screens/Register"
 import UserRepository from '../../database/providers/UserProvider';
 import React from "react";
-import Initial from "../screens/Initial";
 import Welcome from "../screens/Welcome";
 
 
