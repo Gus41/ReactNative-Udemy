@@ -3,7 +3,10 @@ import { executeTransaction } from "../Database"
 export type User = {
     id?:number,
     name:string,
-    age:number
+    age:number,
+    sex:string,
+    height:number,
+    weight:number
 }
 
 export default class UserRepository{
@@ -14,13 +17,14 @@ export default class UserRepository{
         const data = await executeTransaction(
             "CREATE TABLE IF NOT EXISTS user(id integer primary key, name text, sex text, height double,weight double)"
         )
-        console.log("Tabela atualizada")
+        console.log("Tabela atualizada : ")
+        console.log(data)
     }
     public async create(user:User){
         //console.log(user)
         const sqlReturn = await executeTransaction(
-            "INSERT INTO user(id, name, age) VALUES(?,?,?)",
-            [user.id,user.name,user.age]
+            "INSERT INTO user(id, name, age, sex, height, weight ) VALUES(?,?,?,?,?,?)",
+            [user.id,user.name,user.age,user.sex,user.height,user.weight]
         )
 
         return sqlReturn
