@@ -34,7 +34,7 @@ export default class Initial extends Component{
   }
 
   goEdit = ()=>{
-    this.props.navigation.navigate("Edit")
+    this.props.navigation.navigate("edit")
   }
   getDrinkValues = async ()=>{
     const data = await drinksRepository.all()
@@ -49,11 +49,21 @@ export default class Initial extends Component{
   }
   componentDidMount = async()=>{
     // verificar se existe alguma alteração na tabela de drinks e atualizar o state
+    const drinksUpdated = await drinksRepository.all()
+    for(let i = 0 ; i < drinksUpdated.length ; i ++){
+      this.state.drinks.map((d,d_index)=>{
+        if(d_index == drinksUpdated[i].id){
+          let drinks = this.state.drinks
+          drinks[d_index].value = drinksUpdated[i].value
+          this.setState({drinks})
+        }
+      })
+    }
   }
   add = (value)=>{
     //criar um objeto do tipo day
     //adicionar ele ao historico
-    
+
   }
   render = ()=>{
     return(

@@ -44,10 +44,14 @@ export default (props)=>{
         const userExists = await userRepo.all()
         if(userExists.length > 1){
             //alterar dados
-            
+            await userRepo.update(user)
+            console.log("UPDATE")
+            props.navigation.navigate("initial")
+            return
+
         }
         await userRepo.create(user)
-        props.navigation.navigate("initial")
+        console.log("CREATE")
         
     }
     const init = async()=>{

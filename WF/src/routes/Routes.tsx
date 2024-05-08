@@ -5,6 +5,7 @@ import UserRepository from '../../database/providers/UserProvider';
 import React from "react";
 import Welcome from "../screens/Welcome";
 import Initial from "../screens/Initial";
+import Edit from "../screens/Edit";
 
 
 const Mock = ()=>{
@@ -48,6 +49,7 @@ export default class Routes extends React.Component{
 
                     <Drawer.Screen options={{headerTitle:''}} name="initial" component={Initial} />     
                     <Drawer.Screen name="register" options={{title:'Meus dados'}} component={Register} />
+                    <Drawer.Screen name="edit" component={Edit} />
                 </Drawer.Navigator>
             </NavigationContainer>
         )

@@ -20,13 +20,19 @@ export default class UserRepository{
        
     }
     public async create(user:User){
-        //console.log(user)
+
         const sqlReturn = await executeTransaction(
             "INSERT INTO user(id, name, sex, height, weight ) VALUES(?,?,?,?,?)",
             [user.id,user.name,user.sex,user.height,user.weight]
         )
 
         return sqlReturn
+    }
+    public async update(user: User){
+        await executeTransaction(
+            "UPDATE user set name = ? , sex = ? , height = ? , weight = ? WHERE id = 1",
+            [user.name,user.sex,user.height,user.weight]
+        )
     }
     public async all(){
         const data = await executeTransaction("SELECT * FROM user")

@@ -1,7 +1,6 @@
 import React from "react";
 import { Image, Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
-import { useState } from "react";
-import IDrinks from "../interfaces/IDrinks";
+
 
 export default (props:any)=>{
     let dr = props.drinkValues

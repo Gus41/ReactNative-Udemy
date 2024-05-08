@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image, Modal } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import EditDrink from "../components/EditDrink";
-import Drinks from "../components/Drinks";
+import DrinkRepository from "../../database/providers/DrinkProvider";
 
+const drinkRepository = new DrinkRepository()
 
 export default (props)=>{
 
     console.log(props.route)
-    const [drinks,setDrinks] = useState(props.route.params.drinks)
+    const [drinks,setDrinks] = useState([])
     const [ShowEditDrink,setShowEditDrink] = useState(false)
     const [DrinkSelecioned, setDrinkSelecioned] = useState(0)
     const [drinkId,setDrinkId] = useState(0)
@@ -20,8 +20,8 @@ export default (props)=>{
         setDrinkId(id)        
         setShowEditDrink(!ShowEditDrink)
     }
-    const NewValue = (id,value)=>{
-        console.log(".")
+    const save = async(id, newValue)=>{
+        
     }
     return(
         <View style={styles.container}>
@@ -31,7 +31,7 @@ export default (props)=>{
            <Text style={styles.text}>
             {ShowEditDrink?'Insira o novo valor para o elemento':'Selecione o elemento que deseja editar o valor'}
            </Text>
-           <EditDrink save={props.route.params.save} id={drinkId}  show={ShowEditDrink} toggle={()=>setShowEditDrink(!ShowEditDrink)} drinkValue = {DrinkSelecioned} />
+           <EditDrink save={()=>{"salvar"}} id={drinkId}  show={ShowEditDrink} toggle={()=>setShowEditDrink(!ShowEditDrink)} drinkValue = {DrinkSelecioned} />
            <View style={styles.drinks}>
                     <TouchableOpacity style={styles.drink}
                         onPress={()=> selectDrink(0)}

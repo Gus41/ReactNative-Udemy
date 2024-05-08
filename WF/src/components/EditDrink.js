@@ -1,6 +1,5 @@
 import React from "react";
 import { Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
 
 

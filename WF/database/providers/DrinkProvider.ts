@@ -1,6 +1,6 @@
 import { executeTransaction } from "../Database"
 import IDrink from "../../src/interfaces/Drinks"
-import IDrinks from "../../src/interfaces/IDrinks"
+
 export default class DrinkRepository{
     constructor(){
         this.up()
@@ -16,7 +16,7 @@ export default class DrinkRepository{
     }
     public async create(drink:IDrink){
         const sqlReturn = await executeTransaction(
-            "INSERT INTO user(id, value) VALUES(?,?)",
+            "INSERT INTO drinks(id, value) VALUES(?,?)",
             [drink.id, drink.value]
         )
 
@@ -26,6 +26,11 @@ export default class DrinkRepository{
         const data = await executeTransaction("SELECT * FROM drinks")
         //console.log(data.rows)
         return data.rows._array
+    }
+    public async update(id:number,value:number){
+        const data = await executeTransaction(`UPDATE drinks SET value = ? WHERE id = ${id}`,
+            [value]
+        )
     }
     public async down(){
         await executeTransaction("DROP TABLE drinks")
