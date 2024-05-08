@@ -28,7 +28,6 @@ export default (props)=>{
     }
     const add = async (user)=>{
         
-        console.log(user)
 
         if(!user.name){
             alert("Dados Incompletos")
@@ -42,9 +41,20 @@ export default (props)=>{
             alert("Dados Incompletos")
             return
         }
-
+        const userExists = await userRepo.all()
+        if(userExists.length > 1){
+            //alterar dados
+            
+        }
         await userRepo.create(user)
+        props.navigation.navigate("initial")
         
+    }
+    const init = async()=>{
+        const user = await userRepo.all()
+        if(user.length > 0){
+            // usuário já registrado
+        }
     }
     return(
         <View style={styles.container}>

@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image } from "react-native";
-import Drinks from "../components/Drinks";
 import { Component } from "react";
-
+import Drinks from "../components/Drinks";
+import DrinkRepository from "../../database/providers/DrinkProvider";
 
 function goInitial(){
   console.log('go initial')
 }
 
+const drinksRepository = new DrinkRepository()
 
 export default class Initial extends Component{
   state = {
@@ -17,8 +18,10 @@ export default class Initial extends Component{
   goEdit = ()=>{
     this.props.navigation.navigate("Edit")
   }
-  getDrinkValues = ()=>{
-    return this.props.route.params.DrinksValues
+  getDrinkValues = async ()=>{
+    const data = await drinksRepository.all()
+    console.log(data)
+    return [500,1000,1500,2000]
   }
   getGoal = ()=>{
     return 2000
@@ -36,9 +39,9 @@ export default class Initial extends Component{
               <Text style={styles.text}>Meta: {this.getGoal()} ml</Text>
            </View>
            <View>
-            <Text style={styles.text}>{this.props.route.params.amount}</Text>
+            <Text style={styles.text}>{0}</Text>
            </View>
-           <Drinks Add={this.props.route.params.AddValue} goInitial={goInitial} goEdit={this.goEdit} drinkValues={this.getDrinkValues()} toggle={this.toggle} show={this.state.showDrinks} />
+           <Drinks Add={()=>console.log("add")} goInitial={goInitial} goEdit={this.goEdit} drinkValues={this.getDrinkValues()} toggle={this.toggle} show={this.state.showDrinks} />
            <TouchableOpacity style={styles.button}
            onPress={this.toggle}>
               <Text style={{color:"white",textAlign:'center'}}>+</Text>

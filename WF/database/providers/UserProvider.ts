@@ -23,7 +23,7 @@ export default class UserRepository{
         //console.log(user)
         const sqlReturn = await executeTransaction(
             "INSERT INTO user(id, name, sex, height, weight ) VALUES(?,?,?,?,?)",
-            [user.id,user.name,user.age,user.sex,user.height,user.weight]
+            [user.id,user.name,user.sex,user.height,user.weight]
         )
 
         return sqlReturn
