@@ -9,7 +9,6 @@ export default class DrinkRepository{
         const data = await executeTransaction(
             "CREATE TABLE IF NOT EXISTS drinks(id integer primary key, value double)"
         )
-        //inserir dados iniciais caso a tabela tenha sido criada
         
         console.log("Alteração na tabela drinks; ")
         console.log(data)

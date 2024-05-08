@@ -4,11 +4,12 @@ import { useState } from "react";
 import IDrinks from "../interfaces/IDrinks";
 
 export default (props:any)=>{
-    const Dr : IDrinks = {data:[]}
+    let dr = props.drinkValues
     let drinks = []
-    for(let i = 0 ; i < Dr.data.length ; i++ ){
-        drinks.push(Dr.data[i].value)
+    for(let i = 0 ; i < dr.length ; i++){
+        drinks.push(dr[i].value)
     }
+    console.log(drinks)
     return(
         <Modal animationType="slide" transparent={true} visible={props.show} style={styles.modal}>
             <TouchableWithoutFeedback

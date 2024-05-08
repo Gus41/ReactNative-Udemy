@@ -9,10 +9,28 @@ function goInitial(){
 }
 
 const drinksRepository = new DrinkRepository()
+const initialDrinks = [{
+  id:1,
+  value:500
+},
+{
+  id:2,
+  value:1000
+},
+{
+  id:3,
+  value:1500
+},
+{
+  id:4,
+  value:2000
+}
 
+]
 export default class Initial extends Component{
   state = {
-    showDrinks:false
+    showDrinks:false,
+    drinks:[...initialDrinks]
   }
 
   goEdit = ()=>{
@@ -20,7 +38,6 @@ export default class Initial extends Component{
   }
   getDrinkValues = async ()=>{
     const data = await drinksRepository.all()
-    console.log(data)
     return [500,1000,1500,2000]
   }
   getGoal = ()=>{
@@ -29,6 +46,14 @@ export default class Initial extends Component{
   toggle = ()=>{
     const showDrinks = !this.state.showDrinks
     this.setState({showDrinks})
+  }
+  componentDidMount = async()=>{
+    // verificar se existe alguma alteração na tabela de drinks e atualizar o state
+  }
+  add = (value)=>{
+    //criar um objeto do tipo day
+    //adicionar ele ao historico
+    
   }
   render = ()=>{
     return(
@@ -41,7 +66,7 @@ export default class Initial extends Component{
            <View>
             <Text style={styles.text}>{0}</Text>
            </View>
-           <Drinks Add={()=>console.log("add")} goInitial={goInitial} goEdit={this.goEdit} drinkValues={this.getDrinkValues()} toggle={this.toggle} show={this.state.showDrinks} />
+           <Drinks Add={()=>console.log("add")} goInitial={goInitial} goEdit={this.goEdit} drinkValues={this.state.drinks} toggle={this.toggle} show={this.state.showDrinks} />
            <TouchableOpacity style={styles.button}
            onPress={this.toggle}>
               <Text style={{color:"white",textAlign:'center'}}>+</Text>
