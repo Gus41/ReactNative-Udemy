@@ -40,6 +40,12 @@ export default class Routes extends React.Component{
         const drinksUpdated = await drinkRepository.all()
         if(drinksUpdated.length > 0){
             // no minimo uma drink foi atualizada anteriormente
+            const drinks = [...this.state.drinks]
+            drinksUpdated.map(d=>{
+                drinks[d.id] = {id:d.id, value:d.value}
+            })
+            console.log(drinks)
+            this.setState({drinks})
         }else{
             //default
         }

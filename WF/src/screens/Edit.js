@@ -5,7 +5,12 @@ import DrinkRepository from "../../database/providers/DrinkProvider";
 
 
 const drinkRepository = new DrinkRepository()
+/*
 
+Não pegar os valores de drink por parametro
+mas chamar o drinkRepository AQUI
+
+*/
 export default class Edit extends React.Component {
 
     constructor(props){
@@ -31,6 +36,8 @@ export default class Edit extends React.Component {
         for(let i = 0 ; i < 4 ; i ++){
             drinks.push(this.props.route.params[i])
         }
+        console.log("------------------")
+        console.log(drinks)
         this.setState({drinks})
     }
     updateDrink = async(id,newValue)=>{
