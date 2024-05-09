@@ -1,66 +1,66 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image, Modal } from "react-native";
 import EditDrink from "../components/EditDrink";
-import DrinkRepository from "../../database/providers/DrinkProvider";
 
-const drinkRepository = new DrinkRepository()
+export default class Edit extends React.Component {
 
-export default (props)=>{
-
-    console.log(props.route)
-    const [drinks,setDrinks] = useState([])
-    const [ShowEditDrink,setShowEditDrink] = useState(false)
-    const [DrinkSelecioned, setDrinkSelecioned] = useState(0)
-    const [drinkId,setDrinkId] = useState(0)
-
-
-    const selectDrink = (id)=>{
-        let drink = drinks[id]
-        setDrinkSelecioned(drink)
-        setDrinkId(id)        
-        setShowEditDrink(!ShowEditDrink)
+    state = {
+        drinks:[{id:0,value:500},{id:0,value:1000},{id:0,value:1500},{id:0,value:2000}],
+        showEditDrink: false,
+        drinkSelecioned:0,
+        drinkId:0,
     }
-    const save = async(id, newValue)=>{
-        
+    selectDrink = (id)=>{
+       let drinkSelecioned = this.state.drinks[id]
+       let drinkId = id
+       let showEditDrink = !this.state.showEditDrink
+       this.setState({
+        drinkId,drinkSelecioned,showEditDrink
+       })
     }
-    return(
-        <View style={styles.container}>
-           <View style={styles.logoContainer}>
-              <Image style={styles.logo} source={require('../../assets/drop.png')}/> 
-           </View>
-           <Text style={styles.text}>
-            {ShowEditDrink?'Insira o novo valor para o elemento':'Selecione o elemento que deseja editar o valor'}
-           </Text>
-           <EditDrink save={()=>{"salvar"}} id={drinkId}  show={ShowEditDrink} toggle={()=>setShowEditDrink(!ShowEditDrink)} drinkValue = {DrinkSelecioned} />
-           <View style={styles.drinks}>
-                    <TouchableOpacity style={styles.drink}
-                        onPress={()=> selectDrink(0)}
-                    >
-                        <Image source={require('../../assets/drinkOne.png')} />
-                        <Text style={styles.text}>{drinks[0]} ml</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.drink} 
-                        onPress={()=> selectDrink(1)}
-                    >
-                        <Image source={require('../../assets/drinkTwo.png')} />
-                        <Text style={styles.text}>{drinks[1]} ml</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.drink}
-                        onPress={()=> selectDrink(2)}>
-                        <Image source={require('../../assets/drinkOne.png')} />
-                        <Text style={styles.text}>{drinks[2]} ml</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.drink}
-                        onPress={()=> selectDrink(3)}
-                    >
-                        <Image source={require('../../assets/drinkOne.png')} />
-                        <Text style={styles.text}>{drinks[3]} ml</Text>
-                    </TouchableOpacity>
+
+    render(){
+       
+        return(
+            <View style={styles.container}>
+               <View style={styles.logoContainer}>
+                  <Image style={styles.logo} source={require('../../assets/drop.png')}/> 
+               </View>
+               <Text style={styles.text}>
+                {this.state.showEditDrink?'Insira o novo valor para o elemento':'Selecione o elemento que deseja editar o valor'}
+               </Text>
+               <EditDrink save={()=>{console.log("teste")}} id={this.state.drinkId}  show={this.state.showEditDrink} toggle={()=>this.setState({showEditDrink:false})} drinkValue = {this.state.drinkSelecioned.value} />
+               <View style={styles.drinks}>
+                        <TouchableOpacity style={styles.drink}
+                            onPress={()=> this.selectDrink(0)}
+                        >
+                            <Image source={require('../../assets/drinkOne.png')} />
+                            <Text style={styles.text}>{this.state.drinks[0].value} ml</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.drink} 
+                            onPress={()=> this.selectDrink(1)}
+                        >
+                            <Image source={require('../../assets/drinkTwo.png')} />
+                            <Text style={styles.text}>{this.state.drinks[1].value} ml</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.drink}
+                            onPress={()=> this.selectDrink(2)}>
+                            <Image source={require('../../assets/drinkOne.png')} />
+                            <Text style={styles.text}>{this.state.drinks[2].value} ml</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.drink}
+                            onPress={()=> this.selectDrink(3)}
+                        >
+                            <Image source={require('../../assets/drinkOne.png')} />
+                            <Text style={styles.text}>{this.state.drinks[3].value} ml</Text>
+                        </TouchableOpacity>
+                </View>
+               
+               <Text style={styles.textBottom}>Seja sua melhor versão</Text>
             </View>
-           
-           <Text style={styles.textBottom}>Seja sua melhor versão</Text>
-        </View>
-    )
+        )
+    }
+    
 }
 
 const styles = StyleSheet.create({
