@@ -32,6 +32,11 @@ export default class DrinkRepository{
             [value]
         )
     }
+    public async getById(id:number){
+        const data = await executeTransaction(`select * from drinks where id =  ${id}`)
+        console.log(data.rows._array)
+        return data.rows._array
+    }
     public async down(){
         await executeTransaction("DROP TABLE drinks")
     }

@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableOpacity, Image, Modal } from "react-native";
 import EditDrink from "../components/EditDrink";
+import DrinkRepository from "../../database/providers/DrinkProvider";
+
+
+const drinkRepository = new DrinkRepository()
 
 export default class Edit extends React.Component {
+
+    constructor(props){
+        super(props)
+    }
 
     state = {
         drinks:[{id:0,value:500},{id:0,value:1000},{id:0,value:1500},{id:0,value:2000}],
@@ -18,7 +26,31 @@ export default class Edit extends React.Component {
         drinkId,drinkSelecioned,showEditDrink
        })
     }
+    componentDidMount = ()=>{
+        let drinks = []
+        for(let i = 0 ; i < 4 ; i ++){
+            drinks.push(this.props.route.params[i])
+        }
+        this.setState({drinks})
+    }
+    updateDrink = async(id,newValue)=>{
+        let drinks = [...this.state.drinks]
+        drinks[id] = {id:id, value:newValue}
+        console.log(drinks)
+        this.setState({drinks})
 
+        //verificar se o id já existe no banco
+        const idAlredyExists = await drinkRepository.getById(id)
+        console.log(idAlredyExists)
+        if(idAlredyExists.length > 0){
+            //se existir update
+            await drinkRepository.update(id,newValue)
+        }else{
+        //se não, insert
+            await drinkRepository.create({id:id,value:newValue})
+        }
+
+    }
     render(){
        
         return(
@@ -29,7 +61,7 @@ export default class Edit extends React.Component {
                <Text style={styles.text}>
                 {this.state.showEditDrink?'Insira o novo valor para o elemento':'Selecione o elemento que deseja editar o valor'}
                </Text>
-               <EditDrink save={()=>{console.log("teste")}} id={this.state.drinkId}  show={this.state.showEditDrink} toggle={()=>this.setState({showEditDrink:false})} drinkValue = {this.state.drinkSelecioned.value} />
+               <EditDrink save={this.updateDrink} id={this.state.drinkId}  show={this.state.showEditDrink} toggle={()=>this.setState({showEditDrink:false})} drinkValue = {this.state.drinkSelecioned.value} />
                <View style={styles.drinks}>
                         <TouchableOpacity style={styles.drink}
                             onPress={()=> this.selectDrink(0)}

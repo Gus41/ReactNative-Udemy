@@ -6,6 +6,7 @@ import React from "react";
 import Welcome from "../screens/Welcome";
 import Initial from "../screens/Initial";
 import Edit from "../screens/Edit";
+import DrinkRepository from "../../database/providers/DrinkProvider";
 
 
 const Mock = ()=>{
@@ -17,10 +18,13 @@ const Mock = ()=>{
 
 const Drawer = createDrawerNavigator()
 const userRepository = new UserRepository()
+const drinkRepository = new DrinkRepository()
+
 export default class Routes extends React.Component{
 
     state = {
-        user : false
+        user : false,
+        drinks:[{id:0,value:500},{id:0,value:1000},{id:0,value:1500},{id:0,value:2000}],
     }
     async componentDidMount(){
         const user = await userRepository.all()
@@ -32,6 +36,12 @@ export default class Routes extends React.Component{
         }else{
             console.log("Usuário não encontrado no banco de dados.")
             this.setState({user:false})
+        }
+        const drinksUpdated = await drinkRepository.all()
+        if(drinksUpdated.length > 0){
+            // no minimo uma drink foi atualizada anteriormente
+        }else{
+            //default
         }
         
     }
@@ -49,7 +59,7 @@ export default class Routes extends React.Component{
 
                     <Drawer.Screen options={{headerTitle:''}} name="initial" component={Initial} />     
                     <Drawer.Screen name="register" options={{title:'Meus dados'}} component={Register} />
-                    <Drawer.Screen name="edit" component={Edit} />
+                    <Drawer.Screen name="edit" initialParams={this.state.drinks} component={Edit} />
                 </Drawer.Navigator>
             </NavigationContainer>
         )
