@@ -44,7 +44,7 @@ export default class Routes extends React.Component{
             drinksUpdated.map(d=>{
                 drinks[d.id] = {id:d.id, value:d.value}
             })
-            console.log(drinks)
+            //console.log(drinks)
             this.setState({drinks})
         }else{
             //default

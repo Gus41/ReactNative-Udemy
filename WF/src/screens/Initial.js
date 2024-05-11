@@ -10,19 +10,19 @@ function goInitial(){
 
 const drinksRepository = new DrinkRepository()
 const initialDrinks = [{
-  id:1,
+  id:0,
   value:500
 },
 {
-  id:2,
+  id:1,
   value:1000
 },
 {
-  id:3,
+  id:2,
   value:1500
 },
 {
-  id:4,
+  id:3,
   value:2000
 }
 
@@ -65,6 +65,18 @@ export default class Initial extends Component{
     //adicionar ele ao historico
 
   }
+  componentDidUpdate = async ()=>{
+    const drinksUpdated = await drinksRepository.all()
+    for(let i = 0 ; i < drinksUpdated.length ; i ++){
+      this.state.drinks.map((d,d_index)=>{
+        if(d_index == drinksUpdated[i].id){
+          let drinks = this.state.drinks
+          drinks[d_index].value = drinksUpdated[i].value
+          this.setState({drinks})
+        }
+      })
+    }
+  }
   render = ()=>{
     return(
       <View style={styles.container}>
@@ -76,7 +88,7 @@ export default class Initial extends Component{
            <View>
             <Text style={styles.text}>{0}</Text>
            </View>
-           <Drinks Add={()=>console.log("add")} goInitial={goInitial} goEdit={this.goEdit} drinkValues={this.state.drinks} toggle={this.toggle} show={this.state.showDrinks} />
+           <Drinks Add={()=>console.log("add")} goInitial={goInitial} goEdit={this.goEdit} toggle={this.toggle} show={this.state.showDrinks} />
            <TouchableOpacity style={styles.button}
            onPress={this.toggle}>
               <Text style={{color:"white",textAlign:'center'}}>+</Text>
