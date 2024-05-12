@@ -88,7 +88,7 @@ export default class Initial extends Component{
            <View>
             <Text style={styles.text}>{0}</Text>
            </View>
-           <Drinks Add={()=>console.log("add")} goInitial={goInitial} goEdit={this.goEdit} toggle={this.toggle} show={this.state.showDrinks} />
+           <Drinks Add={()=>console.log("add")} goInitial={goInitial} goEdit={this.goEdit} drinkValues={this.state.drinks} toggle={this.toggle} show={this.state.showDrinks} />
            <TouchableOpacity style={styles.button}
            onPress={this.toggle}>
               <Text style={{color:"white",textAlign:'center'}}>+</Text>
