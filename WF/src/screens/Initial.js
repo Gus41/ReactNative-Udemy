@@ -30,7 +30,8 @@ const initialDrinks = [{
 export default class Initial extends Component{
   state = {
     showDrinks:false,
-    drinks:[...initialDrinks]
+    drinks:[...initialDrinks],
+    amount:0
   }
 
   goEdit = ()=>{
@@ -48,6 +49,12 @@ export default class Initial extends Component{
     this.setState({showDrinks})
   }
   componentDidMount = async()=>{
+    const historic = await historicRepository.all()
+    let amount = 0
+    for(let i = 0 ; i < historic.length ; i ++){
+      amount += historic[i].value
+    }
+    this.setState({amount})
     // verificar se existe alguma alteração na tabela de drinks e atualizar o state
     const drinksUpdated = await drinksRepository.all()
     for(let i = 0 ; i < drinksUpdated.length ; i ++){
@@ -79,6 +86,8 @@ export default class Initial extends Component{
     return validId;
 }
   add = async (value)=>{
+    const amount = this.state.amount + value
+    this.setState({amount})
     //criar um objeto do tipo day
     //adicionar ele ao historico
     //amount, date, id
@@ -92,6 +101,7 @@ export default class Initial extends Component{
       id,
       date: new Date()
     }
+    
     const sqlReturn = await historicRepository.create(day) 
     console.log(sqlReturn)
 
@@ -117,7 +127,7 @@ export default class Initial extends Component{
               <Text style={styles.text}>Meta: {this.getGoal()} ml</Text>
            </View>
            <View>
-            <Text style={styles.text}>{0}</Text>
+            <Text style={styles.text}>{this.state.amount}</Text>
            </View>
            <Drinks Add={this.add} goInitial={()=>console.log("GoInitial")} goEdit={this.goEdit} drinkValues={this.state.drinks} toggle={this.toggle} show={this.state.showDrinks} />
            <TouchableOpacity style={styles.button}
