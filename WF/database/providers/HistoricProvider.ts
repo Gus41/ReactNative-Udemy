@@ -13,12 +13,32 @@ export default class HistoricRepository{
         console.log(data)
        
     }
+    private formatDateToSql(date:Date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Adiciona zero à esquerda se necessário
+        const day = String(date.getDate()).padStart(2, '0'); // Adiciona zero à esquerda se necessário
+        
+        // Formata a data no formato SQL (YYYY-MM-DD)
+        const formattedDate = `${year}-${month}-${day}`;
+        
+        return formattedDate;
+    }
+
     public async create(day:IDay){
+
+        const data = this.formatDateToSql(day.date)
+        const dayToSql = {
+         id:day.id,
+         date:data,
+         amount:day.amount
+        }
+
+        
         const sqlReturn = await executeTransaction(
             "INSERT INTO historic(id, value,data) VALUES(?,?,?)",
-            [day.id, day.amount, day.date.toDateString()]
+            [dayToSql.id, dayToSql.amount, dayToSql.date]
         )
-
+        
         return sqlReturn
     }
     public async all(){

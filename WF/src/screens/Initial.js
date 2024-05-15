@@ -60,19 +60,39 @@ export default class Initial extends Component{
       })
     }
   }
+
+  getvalidId = (array)=>{
+    // Cria um conjunto para armazenar todos os IDs usados
+    const idsUsados = new Set();
+    
+    // Percorre o array de objetos e armazena os IDs usados no conjunto
+    array.forEach(objeto => {
+        idsUsados.add(objeto.id);
+    });
+    
+    // Encontra o menor ID que ainda não está presente no conjunto
+    let validId  = 1;
+    while (idsUsados.has(validId)) {
+      validId++;
+    }
+    
+    return validId;
+}
   add = async (value)=>{
     //criar um objeto do tipo day
     //adicionar ele ao historico
     //amount, date, id
 
-    const historicLength = await historicRepository.all()
+    const historic = await historicRepository.all()
+    const id = this.getvalidId(historic)
     //criar um id que não seja sequencial e não se repita
     //pqp
-
     const day = {
-
+      amount:value,
+      id,
+      date: new Date()
     }
-    const sqlReturn = await historicRepository.create() 
+    const sqlReturn = await historicRepository.create(day) 
     console.log(sqlReturn)
 
   }
