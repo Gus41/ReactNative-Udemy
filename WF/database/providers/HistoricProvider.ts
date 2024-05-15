@@ -1,6 +1,6 @@
 import { executeTransaction } from "../Database"
 import IDay from "../../src/interfaces/IDay"
-export default class DrinkRepository{
+export default class HistoricRepository{
     constructor(){
         this.up()
     }

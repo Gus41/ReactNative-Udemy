@@ -8,7 +8,6 @@ export default (props:any)=>{
     for(let i = 0 ; i < dr.length ; i++){
         drinks.push(dr[i].value)
     }
-    console.log(drinks)
     return(
         <Modal animationType="slide" transparent={true} visible={props.show} style={styles.modal}>
             <TouchableWithoutFeedback

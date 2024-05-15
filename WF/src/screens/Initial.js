@@ -3,12 +3,12 @@ import { Text, View, StyleSheet, Touchable, TouchableWithoutFeedback, TouchableO
 import { Component } from "react";
 import Drinks from "../components/Drinks";
 import DrinkRepository from "../../database/providers/DrinkProvider";
+import HistoricRepository from "../../database/providers/HistoricProvider";
 
-function goInitial(){
-  console.log('go initial')
-}
 
 const drinksRepository = new DrinkRepository()
+const historicRepository = new HistoricRepository()
+
 const initialDrinks = [{
   id:0,
   value:500
@@ -60,9 +60,20 @@ export default class Initial extends Component{
       })
     }
   }
-  add = (value)=>{
+  add = async (value)=>{
     //criar um objeto do tipo day
     //adicionar ele ao historico
+    //amount, date, id
+
+    const historicLength = await historicRepository.all()
+    //criar um id que não seja sequencial e não se repita
+    //pqp
+
+    const day = {
+
+    }
+    const sqlReturn = await historicRepository.create() 
+    console.log(sqlReturn)
 
   }
   componentDidUpdate = async ()=>{
@@ -88,7 +99,7 @@ export default class Initial extends Component{
            <View>
             <Text style={styles.text}>{0}</Text>
            </View>
-           <Drinks Add={()=>console.log("add")} goInitial={goInitial} goEdit={this.goEdit} drinkValues={this.state.drinks} toggle={this.toggle} show={this.state.showDrinks} />
+           <Drinks Add={this.add} goInitial={()=>console.log("GoInitial")} goEdit={this.goEdit} drinkValues={this.state.drinks} toggle={this.toggle} show={this.state.showDrinks} />
            <TouchableOpacity style={styles.button}
            onPress={this.toggle}>
               <Text style={{color:"white",textAlign:'center'}}>+</Text>
