@@ -51,6 +51,7 @@ export default (props)=>{
 
         }
         await userRepo.create(user)
+        props.navigation.navigate("initial")
         console.log("CREATE")
         
     }

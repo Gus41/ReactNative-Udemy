@@ -5,7 +5,6 @@ import Drinks from "../components/Drinks";
 import DrinkRepository from "../../database/providers/DrinkProvider";
 import HistoricRepository from "../../database/providers/HistoricProvider";
 
-
 const drinksRepository = new DrinkRepository()
 const historicRepository = new HistoricRepository()
 
@@ -129,6 +128,9 @@ export default class Initial extends Component{
            <View>
             <Text style={styles.text}>{this.state.amount}</Text>
            </View>
+            
+
+
            <Drinks Add={this.add} goInitial={()=>console.log("GoInitial")} goEdit={this.goEdit} drinkValues={this.state.drinks} toggle={this.toggle} show={this.state.showDrinks} />
            <TouchableOpacity style={styles.button}
            onPress={this.toggle}>
